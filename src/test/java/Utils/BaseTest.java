@@ -12,12 +12,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Listeners;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by idorovskikh on 1/18/17.
  */
-@Listeners({ ScreenshotUtility.class })
 
 public class BaseTest {
 

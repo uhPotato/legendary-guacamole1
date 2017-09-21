@@ -28,23 +28,6 @@ import java.util.concurrent.TimeUnit;
 public class BaseTest {
 
     protected static AppiumDriver driver;
-    static WebDriverWait driverWait;
-
-    protected static Properties prop = new Properties();
-
-
-    protected static WebElement waitForClickable(By locator) {
-        return driverWait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-//    protected static WebElement waitForVisible(By locator) {
-//        return driverWait.until(ExpectedConditions.elementToBeSelected(locator));
-//    }
-
-public void waitForElementToLoad(MobileElement id) {
-    WebDriverWait wait = new WebDriverWait(driver, 15);
-    wait.until(ExpectedConditions.elementToBeClickable(id));
-}
 
     protected boolean elementIsNotPresent(By by) {
         try {
@@ -55,20 +38,7 @@ public void waitForElementToLoad(MobileElement id) {
         }
     }
 
-    protected void changeContext(String context) throws InterruptedException {
-        Set<String> contextHandles = driver.getContextHandles();
-
-        for (String s: contextHandles){
-            System.out.println("Context :" + s);
-            if (s.contains(context)){
-                System.out.println("Setting context to " + s);
-                driver.context(s);
-                break;
-            }
-        }
-    }
-
-    private void killUiAutomatorServer() throws IOException, InterruptedException{
+    private void killUiAutomatorServer() throws IOException, InterruptedException {
         Process process = Runtime.getRuntime().exec("adb uninstall io.appium.uiautomator2.server");
         process.waitFor();
 
@@ -78,13 +48,8 @@ public void waitForElementToLoad(MobileElement id) {
 
     @BeforeSuite(alwaysRun = true)
     public void setUp() throws IOException, InterruptedException {
-//start Appium server
+        //start Appium server
         AppiumServer.startAppiumServer();
-
-//        creating path to user.properties file and loading it
-        FileInputStream file = new FileInputStream(System.getProperty("user.dir") + "/src/test/user.properties");
-        prop.load(file);
-
         killUiAutomatorServer();
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Samsung Galaxy S7 edge");
@@ -93,22 +58,18 @@ public void waitForElementToLoad(MobileElement id) {
         capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "us.moviemates");
         capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".Activities.SplashActivity");
         capabilities.setCapability("autoGrantPermissions", "true"); //grant permission to system dialogues such as location
-//      capabilities.setCapability(MobileCapabilityType.NO_RESET, "true");
         capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "/app/app-debug.apk");
         capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 30);
         capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
-
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driverWait = new WebDriverWait(driver, 30);
         System.out.println(".......Starting Appium driver");
     }
 
     @AfterSuite
-    public void tearDown() throws IOException, InterruptedException{
+    public void tearDown() throws IOException, InterruptedException {
         System.out.println(".......Stopping Appium driver");
         driver.quit();
         AppiumServer.stopAppiumServer();
     }
-
 }

@@ -10,3 +10,4 @@ buildNumber.properties
 .mvn/timing.properties
 sreenshots/
 .idea/
+npm-debug.log.*

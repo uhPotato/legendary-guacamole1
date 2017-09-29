@@ -4,16 +4,14 @@ import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 /**
  * Created by idorovskikh on 1/18/17.
  */
 public class UserProfile extends BaseTest {
 
-    @BeforeClass
+    @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {
         System.out.println("login");
         driver.findElement(By.id("btnGoogleLogin")).click();
@@ -29,7 +27,7 @@ public class UserProfile extends BaseTest {
         Assert.assertTrue(driver.findElementById("btnHamburger").isDisplayed());
     }
 
-    @AfterClass
+    @AfterMethod
     public void afterEachTest() {
         System.out.println("Resetting App");
         driver.resetApp();

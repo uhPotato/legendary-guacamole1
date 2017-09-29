@@ -10,7 +10,6 @@ import org.testng.annotations.*;
  * Created by idorovskikh on 1/18/17.
  */
 public class UserProfile extends BaseTest {
-
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {
         System.out.println("login");

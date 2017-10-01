@@ -51,6 +51,7 @@ public class UserProfile extends BaseTest {
         MobileElement checkTextField = (MobileElement) driver.findElementById("tvNameValue");
         Assert.assertEquals(checkTextField.getText(), newName);
     }
+<<<<<<< HEAD
 
     @Test
     public void changeNameWithOneChar() {
@@ -76,4 +77,6 @@ public class UserProfile extends BaseTest {
 
         Assert.assertEquals(beforeName, afterName);
     }
+=======
+>>>>>>> 2977da83b42144d663dc7a4f59f1106d291fdb5e
 }

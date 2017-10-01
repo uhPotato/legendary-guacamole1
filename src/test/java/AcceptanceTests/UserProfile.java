@@ -51,4 +51,29 @@ public class UserProfile extends BaseTest {
         MobileElement checkTextField = (MobileElement) driver.findElementById("tvNameValue");
         Assert.assertEquals(checkTextField.getText(), newName);
     }
+
+    @Test
+    public void changeNameWithOneChar() {
+        MobileElement profileButton = (MobileElement) driver.findElementById("btnHamburger");
+        profileButton.click();
+
+        MobileElement beforecheckTextField = (MobileElement) driver.findElementById("tvNameValue");
+        String beforeName=beforecheckTextField.getText();
+
+        MobileElement nameEdit = (MobileElement) driver.findElementById("ivName");
+        nameEdit.click();
+
+        MobileElement nameTextField = (MobileElement) driver.findElementById("edit_text");
+        MobileElement okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
+        nameTextField.clear();
+        String newName = "Q";
+        nameTextField.sendKeys(newName);
+        driver.hideKeyboard();
+        okButtonAfterNameChanging.click();
+
+        MobileElement aftercheckTextField = (MobileElement) driver.findElementById("tvNameValue");
+        String afterName = aftercheckTextField.getText();
+
+        Assert.assertEquals(beforeName, afterName);
+    }
 }

@@ -74,6 +74,6 @@ public class UserProfile extends BaseTest {
         MobileElement aftercheckTextField = (MobileElement) driver.findElementById("tvNameValue");
         String afterName = aftercheckTextField.getText();
 
-        Assert.assertEquals(beforeName, afterName);
+        Assert.assertEquals(beforeName, afterName); //
     }
 }

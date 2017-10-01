@@ -66,9 +66,7 @@ public class UserProfile extends BaseTest {
         MobileElement nameTextField = (MobileElement) driver.findElementById("edit_text");
         MobileElement okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
         nameTextField.clear();
-        //        String newName = "\uD83D\uDE00";
-
-                String newName = "Q";
+        String newName = "Q";
         nameTextField.sendKeys(newName);
         driver.hideKeyboard();
         okButtonAfterNameChanging.click();

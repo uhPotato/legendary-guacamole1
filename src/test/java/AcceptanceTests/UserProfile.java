@@ -1,5 +1,7 @@
 package AcceptanceTests;
 
+import PageObjects.MoviesPage;
+import PageObjects.ProfilePage;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
@@ -34,11 +36,18 @@ public class UserProfile extends BaseTest {
 
     @Test
     public void changeName() {
-        MobileElement profileButton = (MobileElement) driver.findElementById("btnHamburger");
-        profileButton.click();
 
-        MobileElement nameEdit = (MobileElement) driver.findElementById("ivName");
-        nameEdit.click();
+        MoviesPage moviesPage = new MoviesPage();
+        ProfilePage profilePage = moviesPage.clickOnProfileButton();
+        profilePage.clickOnEditName();
+
+
+
+     //   MobileElement profileButton = (MobileElement) driver.findElementById("btnHamburger");
+     //   profileButton.click();
+
+      //  MobileElement nameEdit = (MobileElement) driver.findElementById("ivName");
+      //  nameEdit.click();
 
         MobileElement nameTextField = (MobileElement) driver.findElementById("edit_text");
         MobileElement okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");

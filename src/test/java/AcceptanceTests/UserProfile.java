@@ -61,15 +61,15 @@ public class UserProfile extends BaseTest {
         nameEdit.click();
 
         MobileElement nameTextField = (MobileElement) driver.findElementById("edit_text");
-        String previousName = nameTextField.getText();
+        String oldName = nameTextField.getText();
         MobileElement okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
         nameTextField.clear();
-        String newName = "A";
+        String newName = "X";
         nameTextField.sendKeys(newName);
         driver.hideKeyboard();
         okButtonAfterNameChanging.click();
 
         MobileElement checkTextField = (MobileElement) driver.findElementById("tvNameValue");
-        Assert.assertEquals(checkTextField.getText(), previousName);
+        Assert.assertEquals(checkTextField.getText(), oldName);
     }
 }

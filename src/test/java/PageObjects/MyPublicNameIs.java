@@ -16,7 +16,7 @@ public class MyPublicNameIs extends BaseTest {
 
     }
 
-    public void nameTextFieldWrite(String newName) {
+    public void setNameField(String newName) {
         nameTextField.clear();
         nameTextField.sendKeys(newName);
         driver.hideKeyboard();

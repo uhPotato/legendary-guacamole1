@@ -41,8 +41,7 @@ public class BaseTest {
 
     protected void waitForElementToLoad(MobileElement id) {
         WebDriverWait wait = new WebDriverWait(driver,15);
-        //wait.until(ExpectedConditions.elementToBeClickable(id));
-        System.out.println("btnHamburger FOUND!!!");
+        wait.until(ExpectedConditions.elementToBeClickable(id));
     }
 
     private void killUiAutomatorServer() throws IOException, InterruptedException {

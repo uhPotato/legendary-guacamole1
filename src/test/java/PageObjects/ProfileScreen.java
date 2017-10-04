@@ -4,23 +4,25 @@ import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 
 public class ProfileScreen extends BaseTest {
-
-    MobileElement nameField;
-    MobileElement nameEdit;
+    String          nameField;
+    MobileElement   nameFieldElement;
+    MobileElement   nameEditElement;
 
     public ProfileScreen() {
-        nameField = (MobileElement) driver.findElementById("tvNameValue");
-        waitForElementToLoad(nameField);
-        nameEdit = (MobileElement) driver.findElementById("ivName");
-        waitForElementToLoad(nameEdit);
+        nameFieldElement = (MobileElement) driver.findElementById("tvNameValue");
+        waitForElementToLoad(nameFieldElement);
+        nameEditElement = (MobileElement) driver.findElementById("ivName");
+        waitForElementToLoad(nameEditElement);
+
+        nameField = nameFieldElement.getText();
     }
 
     public String getNameField() {
-        return nameField.getText();
+        return nameField;
     }
 
     public MyPublicNameIs clickOnEditName() {
-        nameEdit.click();
+        nameEditElement.click();
         return new MyPublicNameIs();
     }
 

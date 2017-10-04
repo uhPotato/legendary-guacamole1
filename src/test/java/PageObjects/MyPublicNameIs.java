@@ -9,7 +9,7 @@ public class MyPublicNameIs extends BaseTest {
 
     public MyPublicNameIs() {
         nameTextField = (MobileElement) driver.findElementById("edit_text");
-        waitForElementToLoad(okButtonAfterNameChanging);
+        waitForElementToLoad(nameTextField);
 
         okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
         waitForElementToLoad(okButtonAfterNameChanging);

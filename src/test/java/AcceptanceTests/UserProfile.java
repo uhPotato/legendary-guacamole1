@@ -44,25 +44,22 @@ public class UserProfile extends BaseTest {
         String newName = "Boris";
 
         myPublicNameIs.setNameField(newName);
-        profileScreen = myPublicNameIs.clickOnOkButtonAfterNameChanging();
+        ProfileScreen newProfileScreen = myPublicNameIs.clickOnOkButtonAfterNameChanging();
 
-        Assert.assertEquals(profileScreen.getNameField(), newName);
+        Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
     @Test
     public void changeNameWithOneChar() {
         MoviesScreen moviesScreen = new MoviesScreen();
-        ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
-
-        String previousName = profileScreen.getNameField();
-
-        MyPublicNameIs myPublicNameIs = profileScreen.clickOnEditName();
+        ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
+        MyPublicNameIs myPublicNameIs = previousProfileScreen.clickOnEditName();
 
         String newName = "B";
 
         myPublicNameIs.setNameField(newName);
-        profileScreen = myPublicNameIs.clickOnOkButtonAfterNameChanging();
+        ProfileScreen newProfileScreen = myPublicNameIs.clickOnOkButtonAfterNameChanging();
 
-        Assert.assertEquals(profileScreen.getNameField(), previousName);
+        Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 }

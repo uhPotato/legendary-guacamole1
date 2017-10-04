@@ -38,6 +38,11 @@ public class BaseTest {
         }
     }
 
+    protected void waitForElementToLoad(MobileElement id) {
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        wait.until(ExpectedConditions.elementToBeClickable((id)));
+    }
+
     private void killUiAutomatorServer() throws IOException, InterruptedException {
         Process process = Runtime.getRuntime().exec("adb uninstall io.appium.uiautomator2.server");
         process.waitFor();

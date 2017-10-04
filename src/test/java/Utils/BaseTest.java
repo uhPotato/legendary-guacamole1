@@ -8,6 +8,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
@@ -36,6 +37,12 @@ public class BaseTest {
         } finally {
             driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         }
+    }
+
+    protected void waitForElementToLoad(MobileElement id) {
+        WebDriverWait wait = new WebDriverWait(driver,15);
+        //wait.until(ExpectedConditions.elementToBeClickable(id));
+        System.out.println("btnHamburger FOUND!!!");
     }
 
     private void killUiAutomatorServer() throws IOException, InterruptedException {

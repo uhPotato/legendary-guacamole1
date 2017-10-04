@@ -8,6 +8,7 @@ import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import sun.java2d.cmm.Profile;
 
 /**
  * Created by idorovskikh on 1/18/17.
@@ -40,72 +41,28 @@ public class UserProfile extends BaseTest {
 
         MoviesPage moviesPage = new MoviesPage();
         ProfilePage profilePage = moviesPage.clickOnProfileButton();
-        profilePage.clickOnEditName();
 
-        EditNamePage editNamePage = new EditNamePage();
+        EditNamePage editNamePage = profilePage.clickOnEditName();
         editNamePage.clearName();
         String newName = "Boris";
         editNamePage.inputName(newName);
-        editNamePage.clickOkButton();
 
-        profilePage.assertName(newName);
-
-
-
-
-     //   MobileElement profileButton = (MobileElement) driver.findElementById("btnHamburger");
-     //   profileButton.click();
-
-      //  MobileElement nameEdit = (MobileElement) driver.findElementById("ivName");
-      //  nameEdit.click();
-
-      //  MobileElement nameTextField = (MobileElement) driver.findElementById("edit_text");
-      //  MobileElement okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
-      //  nameTextField.clear();
-      //  String newName = "Boris";
-      //  nameTextField.sendKeys(newName);
-      //  driver.hideKeyboard();
-        // okButtonAfterNameChanging.click();
-
-        //MobileElement checkTextField = (MobileElement) driver.findElementById("tvNameValue");
-        //Assert.assertEquals(checkTextField.getText(), newName);
+        ProfilePage changedNameProfilePage = editNamePage.clickOkButton();
+        Assert.assertEquals(changedNameProfilePage.getProfileName(), newName);
     }
 
     @Test
     public void changeNameWithOneChar() {
         MoviesPage moviesPage = new MoviesPage();
         ProfilePage profilePage = moviesPage.clickOnProfileButton();
-        profilePage.clickOnEditName();
 
-        EditNamePage editNamePage = new EditNamePage();
+        EditNamePage editNamePage = profilePage.clickOnEditName();
         String oldName = editNamePage.getName();
         editNamePage.clearName();
         String newName = "X";
         editNamePage.inputName(newName);
-        editNamePage.clickOkButton();
 
-        profilePage.assertName(oldName);
-
-
-
-
-
-        //obileElement profileButton = (MobileElement) driver.findElementById("btnHamburger");
-        //profileButton.click();
-
-        //MobileElement nameEdit = (MobileElement) driver.findElementById("ivName");
-        //nameEdit.click();
-
-//        MobileElement nameTextField = (MobileElement) driver.findElementById("edit_text");
-//        String oldName = nameTextField.getText();
-//        MobileElement okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
-//        nameTextField.clear();
-//        String newName = "X";
-//        nameTextField.sendKeys(newName);
-//        driver.hideKeyboard();
-//        okButtonAfterNameChanging.click();
-//
-//        MobileElement checkTextField = (MobileElement) driver.findElementById("tvNameValue");
-//        Assert.assertEquals(checkTextField.getText(), oldName);
+        ProfilePage changedNameProfilePage = editNamePage.clickOkButton();
+        Assert.assertEquals(changedNameProfilePage.getProfileName(), oldName);
     }
 }

@@ -14,6 +14,9 @@ public class EditNamePage extends BaseTest {
         nameTextField =  (MobileElement) driver.findElementById("edit_text");
         waitForElementToLoad(nameTextField);
 
+        okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
+        waitForElementToLoad(okButtonAfterNameChanging);
+
     }
 
     public String getName(){
@@ -29,10 +32,9 @@ public class EditNamePage extends BaseTest {
         driver.hideKeyboard();
     }
 
-    public void clickOkButton(){
-        okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
-        waitForElementToLoad(okButtonAfterNameChanging);
+    public ProfilePage clickOkButton(){
         okButtonAfterNameChanging.click();
+        return new ProfilePage();
     }
 
 }

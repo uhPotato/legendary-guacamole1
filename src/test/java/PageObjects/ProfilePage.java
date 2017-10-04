@@ -15,18 +15,19 @@ public class ProfilePage extends BaseTest {
         nameEdit = (MobileElement) driver.findElementById("ivName");
         waitForElementToLoad(nameEdit);
 
-    }
-
-    public void clickOnEditName() {
-        nameEdit.click();
-        //return new EditNamePage();
-    }
-
-    public void assertName(String name){
         checkTextField = (MobileElement) driver.findElementById("tvNameValue");
         waitForElementToLoad(checkTextField);
-        Assert.assertEquals(checkTextField.getText(), name);
     }
+
+    public EditNamePage clickOnEditName() {
+        nameEdit.click();
+        return new EditNamePage();
+    }
+
+    public String getProfileName(){
+        return checkTextField.getText();
+    }
+
 
 
 

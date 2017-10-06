@@ -21,9 +21,9 @@ public class ProfileScreen extends BaseTest {
         return nameField;
     }
 
-    public MyPublicNameIs clickOnEditName() {
+    public EditNameScreen clickOnEditName() {
         nameEditElement.click();
-        return new MyPublicNameIs();
+        return new EditNameScreen();
     }
 
 }

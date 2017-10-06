@@ -3,11 +3,11 @@ package PageObjects;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 
-public class MyPublicNameIs extends BaseTest {
+public class EditNameScreen extends BaseTest {
     private MobileElement okButtonAfterNameChanging;
     private MobileElement nameTextField;
 
-    public MyPublicNameIs() {
+    public EditNameScreen() {
         nameTextField = (MobileElement) driver.findElementById("edit_text");
         waitForElementToLoad(nameTextField);
 

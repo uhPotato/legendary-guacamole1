@@ -44,6 +44,11 @@ public class BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(id));
     }
 
+    protected static boolean waitForAttributeToBeVisible(By by, String attribute, String textToWait){
+        WebDriverWait wait = new WebDriverWait(driver,15);
+        return wait.until(ExpectedConditions.attributeToBe(by, attribute, textToWait));
+    }
+
     private void killUiAutomatorServer() throws IOException, InterruptedException {
         Process process = Runtime.getRuntime().exec("adb uninstall io.appium.uiautomator2.server");
         process.waitFor();

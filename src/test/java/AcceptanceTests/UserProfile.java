@@ -1,13 +1,15 @@
 package AcceptanceTests;
 
 import PageObjects.MoviesScreen;
-import PageObjects.MyPublicNameIs;
+import PageObjects.EditNameScreen;
 import PageObjects.ProfileScreen;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.*;
+
+import java.util.List;
 
 /**
  * Created by idorovskikh on 1/18/17.
@@ -39,12 +41,12 @@ public class UserProfile extends BaseTest {
     public void changeName() {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
-        MyPublicNameIs myPublicNameIs = profileScreen.clickOnEditName();
+        EditNameScreen editNameScreen = profileScreen.clickOnEditName();
 
         String newName = "Boris";
 
-        myPublicNameIs.setNameField(newName);
-        ProfileScreen newProfileScreen = myPublicNameIs.clickOnOkButtonAfterNameChanging();
+        editNameScreen.setNameField(newName);
+        ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
 
         Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
@@ -53,12 +55,12 @@ public class UserProfile extends BaseTest {
     public void changeNameWithOneChar() {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
-        MyPublicNameIs myPublicNameIs = previousProfileScreen.clickOnEditName();
+        EditNameScreen editNameScreen = previousProfileScreen.clickOnEditName();
 
         String newName = "B";
 
-        myPublicNameIs.setNameField(newName);
-        ProfileScreen newProfileScreen = myPublicNameIs.clickOnOkButtonAfterNameChanging();
+        editNameScreen.setNameField(newName);
+        ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
 
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }

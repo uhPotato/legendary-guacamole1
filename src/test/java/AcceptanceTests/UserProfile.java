@@ -1,7 +1,8 @@
 package AcceptanceTests;
 
-import PageObjects.MoviesPage;
-import PageObjects.ProfilePage;
+import PageObjects.MoviesScreen;
+import PageObjects.MyPublicNameIs;
+import PageObjects.ProfileScreen;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
@@ -36,49 +37,29 @@ public class UserProfile extends BaseTest {
 
     @Test
     public void changeName() {
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
+        MyPublicNameIs myPublicNameIs = profileScreen.clickOnEditName();
 
-        MoviesPage moviesPage = new MoviesPage();
-        ProfilePage profilePage = moviesPage.clickOnProfileButton();
-        profilePage.clickOnEditName();
-
-
-
-     //   MobileElement profileButton = (MobileElement) driver.findElementById("btnHamburger");
-     //   profileButton.click();
-
-      //  MobileElement nameEdit = (MobileElement) driver.findElementById("ivName");
-      //  nameEdit.click();
-
-        MobileElement nameTextField = (MobileElement) driver.findElementById("edit_text");
-        MobileElement okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
-        nameTextField.clear();
         String newName = "Boris";
-        nameTextField.sendKeys(newName);
-        driver.hideKeyboard();
-        okButtonAfterNameChanging.click();
 
-        MobileElement checkTextField = (MobileElement) driver.findElementById("tvNameValue");
-        Assert.assertEquals(checkTextField.getText(), newName);
+        myPublicNameIs.setNameField(newName);
+        ProfileScreen newProfileScreen = myPublicNameIs.clickOnOkButtonAfterNameChanging();
+
+        Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
     @Test
     public void changeNameWithOneChar() {
-        MobileElement profileButton = (MobileElement) driver.findElementById("btnHamburger");
-        profileButton.click();
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
+        MyPublicNameIs myPublicNameIs = previousProfileScreen.clickOnEditName();
 
-        MobileElement nameEdit = (MobileElement) driver.findElementById("ivName");
-        nameEdit.click();
+        String newName = "B";
 
-        MobileElement nameTextField = (MobileElement) driver.findElementById("edit_text");
-        String previousName = nameTextField.getText();
-        MobileElement okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
-        nameTextField.clear();
-        String newName = "A";
-        nameTextField.sendKeys(newName);
-        driver.hideKeyboard();
-        okButtonAfterNameChanging.click();
+        myPublicNameIs.setNameField(newName);
+        ProfileScreen newProfileScreen = myPublicNameIs.clickOnOkButtonAfterNameChanging();
 
-        MobileElement checkTextField = (MobileElement) driver.findElementById("tvNameValue");
-        Assert.assertEquals(checkTextField.getText(), previousName);
+        Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 }

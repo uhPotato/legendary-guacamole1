@@ -44,9 +44,14 @@ public class BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(id));
     }
 
-    protected static boolean waitForAttributeToBeVisible(By by, String attribute, String textToWait){
+    protected static void waitForAttributeToBeVisible(By by, String attribute, String textToWait){
         WebDriverWait wait = new WebDriverWait(driver,15);
-        return wait.until(ExpectedConditions.attributeToBe(by, attribute, textToWait));
+        wait.until(ExpectedConditions.attributeToBe(by, attribute, textToWait));
+    }
+
+    protected String substringForLocation(String profileScreenLocation) {
+        int i = profileScreenLocation.indexOf(",");
+        return profileScreenLocation.substring(0,i);
     }
 
     private void killUiAutomatorServer() throws IOException, InterruptedException {

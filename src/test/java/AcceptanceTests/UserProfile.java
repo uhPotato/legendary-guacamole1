@@ -72,14 +72,14 @@ public class UserProfile extends BaseTest {
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
         LocationScreen locationScreen = profileScreen.clickOnEditLocation();
 
-        String location = "sunnyvale";
+        String location = "Sunnyvale, CA";
 
         locationScreen.setLocationField(location);
         locationScreen.clickOkButton();
 
         profileScreen.waitForLocationServerUpdate(location);
 
-        Assert.assertEquals(substringForLocation(profileScreen.getLocationField()), location);
+        Assert.assertEquals(profileScreen.getLocationField(), location);
 
     }
 }

@@ -16,7 +16,7 @@ public class ProfileScreen extends BaseTest {
         nameEditElement = (MobileElement) driver.findElementById("ivName");
         waitForElementToLoad(nameEditElement);
 
-        locationEditElement = (MobileElement) driver.findElementById("btnLocation");
+        locationEditElement = (MobileElement) driver.findElementById("tvLocationValue");
         waitForElementToLoad(locationEditElement);
     }
 
@@ -35,7 +35,7 @@ public class ProfileScreen extends BaseTest {
     }
 
     public void waitForLocationServerUpdate(String location) {
-        waitForAttributeToBeVisible(By.id("btnLocation"), "text", location);
+        waitForAttributeToBeVisible(By.id("tvLocationValue"), "text", location);
     }
 
     public String getLocationField() {

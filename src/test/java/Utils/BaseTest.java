@@ -49,11 +49,6 @@ public class BaseTest {
         wait.until(ExpectedConditions.attributeToBe(by, attribute, textToWait));
     }
 
-    protected String substringForLocation(String profileScreenLocation) {
-        int i = profileScreenLocation.indexOf(",");
-        return profileScreenLocation.substring(0,i);
-    }
-
     private void killUiAutomatorServer() throws IOException, InterruptedException {
         Process process = Runtime.getRuntime().exec("adb uninstall io.appium.uiautomator2.server");
         process.waitFor();

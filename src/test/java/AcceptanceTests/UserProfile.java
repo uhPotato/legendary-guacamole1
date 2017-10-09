@@ -1,6 +1,10 @@
 package AcceptanceTests;
 
+<<<<<<< HEAD
 
+=======
+import PageObjects.LocationScreen;
+>>>>>>> FIJI_changeLocation
 import PageObjects.MoviesScreen;
 import PageObjects.EditNameScreen;
 import PageObjects.ProfileScreen;
@@ -65,5 +69,22 @@ public class UserProfile extends BaseTest {
         ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
 
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
+    }
+
+    @Test
+    public void changeLocation() {
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
+        LocationScreen locationScreen = profileScreen.clickOnEditLocation();
+
+        String location = "Sunnyvale, CA";
+
+        locationScreen.setLocationField(location);
+        locationScreen.clickOkButton();
+
+        profileScreen.waitForLocationServerUpdate(location);
+
+        Assert.assertEquals(profileScreen.getLocationField(), location);
+
     }
 }

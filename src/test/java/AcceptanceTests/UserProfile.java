@@ -1,14 +1,17 @@
 package AcceptanceTests;
 
-import PageObjects.EditNamePage;
-import PageObjects.MoviesPage;
-import PageObjects.ProfilePage;
+
+import PageObjects.MoviesScreen;
+import PageObjects.EditNameScreen;
+import PageObjects.ProfileScreen;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import sun.java2d.cmm.Profile;
+
+import java.util.List;
 
 /**
  * Created by idorovskikh on 1/18/17.
@@ -38,31 +41,29 @@ public class UserProfile extends BaseTest {
 
     @Test
     public void changeName() {
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
+        EditNameScreen editNameScreen = profileScreen.clickOnEditName();
 
-        MoviesPage moviesPage = new MoviesPage();
-        ProfilePage profilePage = moviesPage.clickOnProfileButton();
-
-        EditNamePage editNamePage = profilePage.clickOnEditName();
-        editNamePage.clearName();
         String newName = "Boris";
-        editNamePage.inputName(newName);
 
-        ProfilePage changedNameProfilePage = editNamePage.clickOkButton();
-        Assert.assertEquals(changedNameProfilePage.getProfileName(), newName);
+        editNameScreen.setNameField(newName);
+        ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
+
+        Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
     @Test
     public void changeNameWithOneChar() {
-        MoviesPage moviesPage = new MoviesPage();
-        ProfilePage profilePage = moviesPage.clickOnProfileButton();
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
+        EditNameScreen editNameScreen = previousProfileScreen.clickOnEditName();
 
-        EditNamePage editNamePage = profilePage.clickOnEditName();
-        String oldName = editNamePage.getName();
-        editNamePage.clearName();
-        String newName = "X";
-        editNamePage.inputName(newName);
+        String newName = "B";
 
-        ProfilePage changedNameProfilePage = editNamePage.clickOkButton();
-        Assert.assertEquals(changedNameProfilePage.getProfileName(), oldName);
+        editNameScreen.setNameField(newName);
+        ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
+
+        Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 }

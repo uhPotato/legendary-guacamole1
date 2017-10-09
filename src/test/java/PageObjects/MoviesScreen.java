@@ -3,23 +3,18 @@ package PageObjects;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 
-/**
- * Created by borisgurtovyy on 10/2/17.
- */
-public class MoviesPage extends BaseTest{
+public class MoviesScreen extends BaseTest {
 
     private MobileElement profileButton;
 
-
-    public MoviesPage() {
+    public MoviesScreen() {
         profileButton = (MobileElement) driver.findElementById("btnHamburger");
         waitForElementToLoad(profileButton);
     }
 
-
-    public ProfilePage clickOnProfileButton() {
+    public ProfileScreen clickOnProfileButton() {
         profileButton.click();
-        return new ProfilePage();
+        return new ProfileScreen();
     }
-
 }
+

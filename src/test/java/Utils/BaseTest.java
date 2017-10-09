@@ -6,19 +6,14 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Properties;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
@@ -40,12 +35,12 @@ public class BaseTest {
     }
 
     protected void waitForElementToLoad(MobileElement id) {
-        WebDriverWait wait = new WebDriverWait(driver,15);
+        WebDriverWait wait = new WebDriverWait(driver, 15);
         wait.until(ExpectedConditions.elementToBeClickable(id));
     }
 
-    protected static boolean waitForAttributeToBeVisible(By by, String attribute, String textToWait){
-        WebDriverWait wait = new WebDriverWait(driver,15);
+    protected static boolean waitForAttributeToBeVisible(By by, String attribute, String textToWait) {
+        WebDriverWait wait = new WebDriverWait(driver, 15);
         return wait.until(ExpectedConditions.attributeToBe(by, attribute, textToWait));
     }
 

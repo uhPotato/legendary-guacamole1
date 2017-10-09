@@ -1,15 +1,15 @@
 package AcceptanceTests;
 
-import PageObjects.MoviesScreen;
 import PageObjects.EditNameScreen;
+import PageObjects.MoviesScreen;
 import PageObjects.ProfileScreen;
 import Utils.BaseTest;
-import io.appium.java_client.MobileElement;
+import Utils.DateFactory;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.*;
-
-import java.util.List;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  * Created by idorovskikh on 1/18/17.
@@ -63,5 +63,19 @@ public class UserProfile extends BaseTest {
         ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
 
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
+    }
+
+    @Test
+    public void userLandedOnMoviesScreenAfterSignIn() {
+        waitForAttributeToBeVisible(By.id("us.moviemates:id/tvTitle"), "text", "Movies");
+        Assert.assertTrue(MoviesScreen.getListOfMainNavTabs().get(0).isSelected());
+    }
+
+    @Test
+    public void highlightedDateMatchesActualDate() {
+        waitForAttributeToBeVisible(By.id("us.moviemates:id/tvTitle"), "text", "Movies");
+        Assert.assertTrue(DateFactory.getActualDayOfMonth().equals(MoviesScreen.getDisplayedDayOfMonth()));
+        Assert.assertTrue(DateFactory.getActualDayOfWeek().equals(MoviesScreen.getDisplayedDayOfWeek()));
+        Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));
     }
 }

@@ -1,10 +1,6 @@
 package AcceptanceTests;
 
-<<<<<<< HEAD
-
-=======
 import PageObjects.LocationScreen;
->>>>>>> FIJI_changeLocation
 import PageObjects.MoviesScreen;
 import PageObjects.EditNameScreen;
 import PageObjects.ProfileScreen;
@@ -17,9 +13,7 @@ import sun.java2d.cmm.Profile;
 
 import java.util.List;
 
-/**
- * Created by idorovskikh on 1/18/17.
- */
+
 public class UserProfile extends BaseTest {
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {

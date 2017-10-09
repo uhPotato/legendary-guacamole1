@@ -22,9 +22,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
-/**
- * Created by idorovskikh on 1/18/17.
- */
+
 
 public class BaseTest {
 

@@ -67,13 +67,13 @@ public class UserProfile extends BaseTest {
 
     @Test
     public void userLandedOnMoviesScreenAfterSignIn() {
-        waitForAttributeToBeVisible(By.id("us.moviemates:id/tvTitle"), "text", "Movies");
+        waitForAttributeToBeVisible(By.id("us.moviemates:id/tvTitle"), "text", "MOVIES");
         Assert.assertTrue(MoviesScreen.getListOfMainNavTabs().get(0).isSelected());
     }
 
     @Test
     public void highlightedDateMatchesActualDate() {
-        waitForAttributeToBeVisible(By.id("us.moviemates:id/tvTitle"), "text", "Movies");
+        waitForAttributeToBeVisible(By.id("us.moviemates:id/tvTitle"), "text", "MOVIES");
         Assert.assertTrue(DateFactory.getActualDayOfMonth().equals(MoviesScreen.getDisplayedDayOfMonth()));
         Assert.assertTrue(DateFactory.getActualDayOfWeek().equals(MoviesScreen.getDisplayedDayOfWeek()));
         Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));

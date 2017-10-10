@@ -11,3 +11,5 @@ buildNumber.properties
 sreenshots/
 .idea/
 npm-debug.log.*
+*.iml
+

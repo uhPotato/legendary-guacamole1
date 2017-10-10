@@ -1,20 +1,24 @@
 package PageObjects;
 
+import ScreenFactories.MoviesScreenFactory;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import java.util.List;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.support.PageFactory;
+
 
 public class MoviesScreen extends BaseTest {
 
-    private MobileElement profileButton;
+    public MoviesScreenFactory moviesScreenFacrory = new MoviesScreenFactory();
 
     public MoviesScreen() {
-        profileButton = (MobileElement) driver.findElementById("btnHamburger");
-        waitForElementToLoad(profileButton);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), moviesScreenFacrory);
+        waitForElementToLoad(moviesScreenFacrory.profileButton);
     }
 
     public ProfileScreen clickOnProfileButton() {
-        profileButton.click();
+        moviesScreenFacrory.profileButton.click();
         return new ProfileScreen();
     }
 

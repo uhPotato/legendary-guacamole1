@@ -9,12 +9,30 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
  * Created by idorovskikh on 1/18/17.
  */
 public class UserProfile extends BaseTest {
+
+    @DataProvider(name = "changeValidNames")
+    public Object[][] createDataForValidTest() {
+        return new Object[][] {
+                {"Boris"},
+                {"Yo"}
+        };
+    }
+
+    @DataProvider(name = "changeInvalidNames")
+    public Object[][] createDataForInvalidTest() {
+        return new Object[][] {
+                {"A"},
+                {"a"}
+        };
+    }
+
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {
         System.out.println("login");
@@ -37,13 +55,13 @@ public class UserProfile extends BaseTest {
         driver.resetApp();
     }
 
-    @Test
-    public void changeName() {
+    @Test(dataProvider = "changeValidNames")
+    public void changeName(String[] validNames) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
         EditNameScreen editNameScreen = profileScreen.clickOnEditName();
 
-        String newName = "Boris";
+        String newName = validNames[0];
 
         editNameScreen.setNameField(newName);
         ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
@@ -51,13 +69,13 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
-    @Test
-    public void changeNameWithOneChar() {
+    @Test(dataProvider = "changeInvalidNames")
+    public void changeNameWithOneChar(String[] invalidNames) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
         EditNameScreen editNameScreen = previousProfileScreen.clickOnEditName();
 
-        String newName = "B";
+        String newName = invalidNames[0];
 
         editNameScreen.setNameField(newName);
         ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();

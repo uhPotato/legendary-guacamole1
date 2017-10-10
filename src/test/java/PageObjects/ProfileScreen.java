@@ -1,28 +1,28 @@
 package PageObjects;
 
+import ScreenFactories.ProfileScreenFactory;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.support.PageFactory;
 
 public class ProfileScreen extends BaseTest {
-    String          nameField;
-    MobileElement   nameFieldElement;
-    MobileElement   nameEditElement;
+
+
+    private ProfileScreenFactory profileScreenFactory = new ProfileScreenFactory();
 
     public ProfileScreen() {
-        nameFieldElement = (MobileElement) driver.findElementById("tvNameValue");
-        waitForElementToLoad(nameFieldElement);
-        nameEditElement = (MobileElement) driver.findElementById("ivName");
-        waitForElementToLoad(nameEditElement);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), profileScreenFactory);
+        waitForElementToLoad(profileScreenFactory.nameEditElement);
 
-        nameField = nameFieldElement.getText();
     }
 
     public String getNameField() {
-        return nameField;
+        return profileScreenFactory.nameFieldElement.getText();
     }
 
     public EditNameScreen clickOnEditName() {
-        nameEditElement.click();
+        profileScreenFactory.nameEditElement.click();
         return new EditNameScreen();
     }
 

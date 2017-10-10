@@ -74,8 +74,8 @@ public class UserProfile extends BaseTest {
     @Test
     public void highlightedDateMatchesActualDate() {
         waitForAttributeToBeVisible(By.id("us.moviemates:id/tvTitle"), "text", "MOVIES");
-        Assert.assertTrue(DateFactory.getActualDayOfMonth().equals(MoviesScreen.getDisplayedDayOfMonth()));
-        Assert.assertTrue(DateFactory.getActualDayOfWeek().equals(MoviesScreen.getDisplayedDayOfWeek()));
+        Assert.assertTrue(DateFactory.getActualDayOfMonth().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfMonth()));
+        Assert.assertTrue(DateFactory.getActualDayOfWeek().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfWeek()));
         Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));
     }
 }

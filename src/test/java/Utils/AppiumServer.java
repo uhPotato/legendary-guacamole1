@@ -1,7 +1,6 @@
 package Utils;
 
 import io.appium.java_client.service.local.AppiumDriverLocalService;
-
 import java.io.IOException;
 
 /**

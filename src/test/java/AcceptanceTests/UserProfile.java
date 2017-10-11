@@ -19,9 +19,28 @@ public class UserProfile extends BaseTest {
     @DataProvider(name = "changeValidNames")
     public Object[][] createDataForValidChangeNameTest() {
         return new Object[][]{
-                {"Boris"}{"Igor"}
+                {"Boris"},
+                {"Igor"}
         };
     }
+
+    @DataProvider(name = "oneCharNames")
+    public Object[][] createDataForOneCharNameTest() {
+        return new Object[][]{
+                {"a"},
+                {"b"}
+        };
+    }
+
+    @DataProvider(name = "changeLocations")
+    public Object[][] createDataForLocationTest() {
+        return new Object[][]{
+                {"Sunnyvale, CA"},
+                {"Milpitas, CA"}
+        };
+    }
+
+
 
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {
@@ -45,13 +64,13 @@ public class UserProfile extends BaseTest {
         driver.resetApp();
     }
 
-    @Test
-    public void changeName() {
+    @Test(dataProvider = "changeValidNames")
+    public void changeName(String[] validNames) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
         EditNameScreen editNameScreen = profileScreen.clickOnEditName();
 
-        String newName = "Boris";
+        String newName = validNames[0];
 
         editNameScreen.setNameField(newName);
         ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
@@ -59,13 +78,13 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
-    @Test
-    public void changeNameWithOneChar() {
+    @Test(dataProvider = "oneCharNames")
+    public void changeNameWithOneChar(String[] oneChar) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
         EditNameScreen editNameScreen = previousProfileScreen.clickOnEditName();
 
-        String newName = "B";
+        String newName = oneChar[0];
 
         editNameScreen.setNameField(newName);
         ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
@@ -73,13 +92,13 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 
-    @Test
-    public void changeLocation() {
+    @Test(dataProvider = "changeLocations")
+    public void changeLocation(String[] validLocations) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
         LocationScreen locationScreen = profileScreen.clickOnEditLocation();
 
-        String location = "Sunnyvale, CA";
+        String location = validLocations[0];
 
         locationScreen.setLocationField(location);
         locationScreen.clickOkButton();

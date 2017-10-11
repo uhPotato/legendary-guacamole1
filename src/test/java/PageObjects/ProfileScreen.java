@@ -15,10 +15,9 @@ public class ProfileScreen extends BaseTest {
 
     public ProfileScreen() {
         PageFactory.initElements(new AppiumFieldDecorator(driver), profileScreenFactory);
+
         waitForElementToLoad(profileScreenFactory.nameFieldElement);
-
         waitForElementToLoad(profileScreenFactory.nameEditElement);
-
         waitForElementToLoad(profileScreenFactory.locationEditElement);
     }
 

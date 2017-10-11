@@ -4,6 +4,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 
+
 public class ProfileScreenFactory {
 
     @AndroidFindBy(id = "tvNameValue")

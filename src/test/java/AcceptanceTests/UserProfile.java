@@ -41,7 +41,6 @@ public class UserProfile extends BaseTest {
     }
 
 
-
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {
         System.out.println("login");
@@ -78,8 +77,10 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
+
     @Test(dataProvider = "oneCharNames")
     public void changeNameWithOneChar(String[] oneChar) {
+
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
         EditNameScreen editNameScreen = previousProfileScreen.clickOnEditName();

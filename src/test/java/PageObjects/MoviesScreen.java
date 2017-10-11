@@ -23,17 +23,17 @@ public class MoviesScreen extends BaseTest {
     }
 
     public void clickInterested(int buttonIndex) {
-        List<MobileElement> interestedButtonsList = driver.findElementsById(moviesScreenFacrory.interestedButton.getId());
-        interestedButtonsList.get(buttonIndex).click();
+        List<MobileElement> interestedButtonsList = driver.findElementsById("tbButtonInterested");
+        interestedButtonsList.get(buttonIndex);
     }
 
     public String getMovieTitle(int movieIndex) {
-        List<MobileElement> movieTitlesList = driver.findElementsById(moviesScreenFacrory.movieTitle.getId());
+        List<MobileElement> movieTitlesList = driver.findElementsById("tvTitle");
         return movieTitlesList.get(movieIndex).getText();
     }
 
     public boolean isCheckMarkDisplayed() {
-        return driver.findElementById(moviesScreenFacrory.movieDateActiveCheckMark.getId()).isDisplayed();
+        return driver.findElementById("iv_movie_date_active_select").isDisplayed();
     }
 
 }

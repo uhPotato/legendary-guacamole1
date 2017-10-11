@@ -18,7 +18,7 @@ public class MoviesScreenFactory {
     @AndroidFindBy (id = "iv_movie_date_active_select")
     public MobileElement movieDateActiveCheckMark;
 
-    @AndroidFindBy (id = "rlToggleButton")
+    @AndroidFindBy (id = "tbButtonInterested")
     public MobileElement interestedButton;
 
 

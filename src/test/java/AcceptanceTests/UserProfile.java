@@ -94,22 +94,18 @@ public class UserProfile extends BaseTest {
 5) Нажать еще раз на interested чтобы разчекать его
 6) проверить что чекмарка на дате нет
  */
-    @Test(dataProvider = "changeMovieIndex")
-    public void markMovieInterested(int [] movieIndex) {
+    @Test
+    public void markMovieInterested() {
         MoviesScreen moviesScreen = new MoviesScreen();
-
-        int newMovieIndex = movieIndex[0];
 
         //1) Выбать фильм как interested
         moviesScreen.clickInterested(0);
 
         //2) Сохранить название фильма в переменной
-        String movieTitle = moviesScreen.getMovieTitle(newMovieIndex);
-
+        String movieTitle = moviesScreen.getMovieTitle(0);
+        System.out.print(movieTitle);
         //3) Заверить, что чекмарк на дате появился
         Assert.assertTrue(moviesScreen.isCheckMarkDisplayed());
-
-
 
     }
 

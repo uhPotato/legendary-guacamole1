@@ -22,6 +22,4 @@ public class MoviesScreenFactory {
     public MobileElement interestedButton;
 
 
-
-
 }

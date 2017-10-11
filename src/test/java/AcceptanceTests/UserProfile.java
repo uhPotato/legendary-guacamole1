@@ -1,15 +1,15 @@
 package AcceptanceTests;
 
-import PageObjects.MoviesScreen;
 import PageObjects.EditNameScreen;
+import PageObjects.MoviesScreen;
 import PageObjects.ProfileScreen;
 import Utils.BaseTest;
-import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.*;
-
-import java.util.List;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 /**
  * Created by idorovskikh on 1/18/17.
@@ -29,6 +29,14 @@ public class UserProfile extends BaseTest {
         return new Object[][] {
                 {"A"},
                 {"a"}
+        };
+    }
+
+    @DataProvider(name = "changeMovieIndex")
+    public Object [][] createDataForMovieIndexing() {
+        return new Object[][] {
+                {0},
+                {1}
         };
     }
 
@@ -81,4 +89,28 @@ public class UserProfile extends BaseTest {
 
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
+/*
+4) Проитерировать лист с фильмами и найти фильм с сохраненным названием
+5) Нажать еще раз на interested чтобы разчекать его
+6) проверить что чекмарка на дате нет
+ */
+    @Test(dataProvider = "changeMovieIndex")
+    public void markMovieInterested(int [] movieIndex) {
+        MoviesScreen moviesScreen = new MoviesScreen();
+
+        int newMovieIndex = movieIndex[0];
+
+        //1) Выбать фильм как interested
+        moviesScreen.clickInterested(0);
+
+        //2) Сохранить название фильма в переменной
+        String movieTitle = moviesScreen.getMovieTitle(newMovieIndex);
+
+        //3) Заверить, что чекмарк на дате появился
+        Assert.assertTrue(moviesScreen.isCheckMarkDisplayed());
+
+
+
+    }
+
 }

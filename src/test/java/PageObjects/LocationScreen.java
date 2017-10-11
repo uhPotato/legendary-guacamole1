@@ -1,29 +1,31 @@
 package PageObjects;
 
+import ScreenFactories.LocationScreenFactory;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.support.PageFactory;
 
 public class LocationScreen extends BaseTest{
 
-    private MobileElement locationTextField, okButton;
+    private LocationScreenFactory locationScreenFactory = new LocationScreenFactory();
 
     public LocationScreen(){
-        locationTextField = (MobileElement) driver.findElementById("etEnterPosition");
-        waitForElementToLoad(locationTextField);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), locationScreenFactory);
 
-        okButton = (MobileElement) driver.findElementById("android:id/button1");
-        waitForElementToLoad(okButton);
+        waitForElementToLoad(locationScreenFactory.locationTextField);
+        waitForElementToLoad(locationScreenFactory.okButton);
     }
 
     public void setLocationField(String location) {
-        locationTextField.click();
-        locationTextField.clear();
-        locationTextField.sendKeys(location);
+        locationScreenFactory.locationTextField.click();
+        locationScreenFactory.locationTextField.clear();
+        locationScreenFactory.locationTextField.sendKeys(location);
         driver.hideKeyboard();
     }
 
     public ProfileScreen clickOkButton() {
-        okButton.click();
+        locationScreenFactory.okButton.click();
         return new ProfileScreen();
 
     }

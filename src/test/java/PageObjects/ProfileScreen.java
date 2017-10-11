@@ -1,36 +1,38 @@
 package PageObjects;
 
+import ScreenFactories.ProfileScreenFactory;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
+import sun.jvm.hotspot.debugger.Page;
 
 public class ProfileScreen extends BaseTest {
 
-    MobileElement   nameFieldElement, nameEditElement, locationEditElement;
+    private ProfileScreenFactory profileScreenFactory = new ProfileScreenFactory();
 
     public ProfileScreen() {
-        nameFieldElement = (MobileElement) driver.findElementById("tvNameValue");
-        waitForElementToLoad(nameFieldElement);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), profileScreenFactory);
+        waitForElementToLoad(profileScreenFactory.nameFieldElement);
 
-        nameEditElement = (MobileElement) driver.findElementById("ivName");
-        waitForElementToLoad(nameEditElement);
+        waitForElementToLoad(profileScreenFactory.nameEditElement);
 
-        locationEditElement = (MobileElement) driver.findElementById("tvLocationValue");
-        waitForElementToLoad(locationEditElement);
+        waitForElementToLoad(profileScreenFactory.locationEditElement);
     }
 
     public String getNameField() {
-        return nameFieldElement.getText();
+        return profileScreenFactory.nameFieldElement.getText();
     }
 
     public EditNameScreen clickOnEditName() {
-        nameEditElement.click();
+        profileScreenFactory.nameEditElement.click();
         return new EditNameScreen();
     }
 
     public LocationScreen clickOnEditLocation() {
-        locationEditElement.click();
+        profileScreenFactory.locationEditElement.click();
         return new LocationScreen();
     }
 
@@ -39,6 +41,6 @@ public class ProfileScreen extends BaseTest {
     }
 
     public String getLocationField() {
-        return locationEditElement.getText();
+        return profileScreenFactory.locationEditElement.getText();
     }
 }

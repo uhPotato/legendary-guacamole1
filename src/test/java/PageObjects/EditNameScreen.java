@@ -1,29 +1,32 @@
 package PageObjects;
 
+import ScreenFactories.EditNameScreenFactory;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.support.PageFactory;
 
 public class EditNameScreen extends BaseTest {
-    private MobileElement okButtonAfterNameChanging;
-    private MobileElement nameTextField;
+
+    private EditNameScreenFactory editNameScreenFactory = new EditNameScreenFactory();
+
 
     public EditNameScreen() {
-        nameTextField = (MobileElement) driver.findElementById("edit_text");
-        waitForElementToLoad(nameTextField);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), editNameScreenFactory);
 
-        okButtonAfterNameChanging = (MobileElement) driver.findElementById("android:id/button1");
-        waitForElementToLoad(okButtonAfterNameChanging);
+        waitForElementToLoad(editNameScreenFactory.nameTextField);
+        waitForElementToLoad(editNameScreenFactory.okButtonAfterNameChanging);
 
     }
 
     public void setNameField(String newName) {
-        nameTextField.clear();
-        nameTextField.sendKeys(newName);
+        editNameScreenFactory.nameTextField.clear();
+        editNameScreenFactory.nameTextField.sendKeys(newName);
         driver.hideKeyboard();
     }
 
     public ProfileScreen clickOnOkButtonAfterNameChanging() {
-        okButtonAfterNameChanging.click();
+        editNameScreenFactory.okButtonAfterNameChanging.click();
         return new ProfileScreen();
     }
 

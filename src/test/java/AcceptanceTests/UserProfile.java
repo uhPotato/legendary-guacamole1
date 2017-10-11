@@ -15,6 +15,14 @@ import java.util.List;
 
 
 public class UserProfile extends BaseTest {
+
+    @DataProvider(name = "changeValidNames")
+    public Object[][] createDataForValidChangeNameTest() {
+        return new Object[][]{
+                {"Boris"}{"Igor"}
+        };
+    }
+
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {
         System.out.println("login");

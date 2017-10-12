@@ -13,3 +13,4 @@ sreenshots/
 npm-debug.log.*
 *.iml
 
+/moviemates.tests.iml

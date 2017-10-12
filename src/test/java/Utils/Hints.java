@@ -1,6 +1,6 @@
 package Utils;
 
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.Random;
 

@@ -4,9 +4,12 @@ import ScreenFactories.MoviesScreenFactory;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
+import static org.testng.FileAssert.fail;
 
 public class MoviesScreen extends BaseTest {
 
@@ -35,6 +38,16 @@ public class MoviesScreen extends BaseTest {
 
     public boolean isCheckMarkDisplayed() {
         return driver.findElementById("iv_movie_date_active_select").isDisplayed();
+    }
+
+    public boolean isCheckMarkNotDisplayed() {
+        try {
+            driver.findElementById("iv_movie_date_active_select");
+            fail ("Checkmark over date is present");
+        }      catch (NoSuchElementException ex) {
+            return true;
+        }
+        return true;
     }
 
     // there's a hard coded '3' because check previous comment

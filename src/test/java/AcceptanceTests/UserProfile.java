@@ -111,7 +111,7 @@ public class UserProfile extends BaseTest {
         moviesScreen.clickInterested(movieIndex);
 
         //6) verify that checkmark over date is not displayed
-        Assert.assertFalse(moviesScreen.isCheckMarkDisplayed());
+        Assert.assertTrue(moviesScreen.isCheckMarkNotDisplayed());
 
     }
 

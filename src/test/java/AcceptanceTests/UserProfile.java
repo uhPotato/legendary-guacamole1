@@ -33,6 +33,12 @@ public class UserProfile extends BaseTest {
         };
     }
 
+    @DataProvider(name = "getAttributeNameAndTextToWait")
+    public Object[] createAttributeNameAndTextToWait() {
+        return new String[]{"text","MOVIES"};
+
+    }
+
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {
         System.out.println("login");

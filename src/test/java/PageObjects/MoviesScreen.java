@@ -5,20 +5,21 @@ import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import java.util.List;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 
 
 public class MoviesScreen extends BaseTest {
 
-    public MoviesScreenFactory moviesScreenFacrory = new MoviesScreenFactory();
+    public static MoviesScreenFactory moviesScreenFactory = new MoviesScreenFactory();
 
     public MoviesScreen() {
-        PageFactory.initElements(new AppiumFieldDecorator(driver), moviesScreenFacrory);
-        waitForElementToLoad(moviesScreenFacrory.profileButton);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), moviesScreenFactory);
+        waitForElementToLoad(moviesScreenFactory.profileButton);
     }
 
     public ProfileScreen clickOnProfileButton() {
-        moviesScreenFacrory.profileButton.click();
+        moviesScreenFactory.profileButton.click();
         return new ProfileScreen();
     }
 
@@ -27,15 +28,18 @@ public class MoviesScreen extends BaseTest {
     }
 
     public static String getDisplayedDayOfMonth() {
-        return String.valueOf(driver.findElementByXPath("//android.widget.RelativeLayout[@index='0']/android.widget.TextView[@index='3']").getText());
+        String asd1 = moviesScreenFactory.displayedDayOfMonth.getText();
+        return asd1;
     }
 
     public static String getDisplayedDayOfWeek() {
-        return String.valueOf(driver.findElementByXPath("//android.widget.RelativeLayout[@index='0']/android.widget.TextView[@index='2']").getText());
+        String asd2 =  moviesScreenFactory.displayedDayOfWeek.getText();
+        return asd2;
     }
 
     public static String getDisplayedMonth() {
-        return String.valueOf(driver.findElementByXPath("//android.widget.RelativeLayout[@index='0']/android.widget.TextView[@index='1']").getText());
+        String asd3 =  moviesScreenFactory.displayedMonth.getText();
+        return asd3;
     }
 }
 

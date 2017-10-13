@@ -1,5 +1,7 @@
 package AcceptanceTests;
 
+import PageObjects.EditGenderScreen;
+import PageObjects.MoviesScreen;
 import PageObjects.EditNameScreen;
 import PageObjects.MoviesScreen;
 import PageObjects.ProfileScreen;
@@ -33,10 +35,12 @@ public class UserProfile extends BaseTest {
         };
     }
 
-    @DataProvider(name = "getAttributeNameAndTextToWait")
-    public Object[] createAttributeNameAndTextToWait() {
-        return new String[]{"text","MOVIES"};
-
+    @DataProvider(name = "genders")
+    public Object[][] createDataForChangeGender() {
+        return  new Object[][] {
+                {"Female", "Male"},
+                {"Female", "Male"}
+        };
     }
 
     @BeforeMethod
@@ -102,4 +106,25 @@ public class UserProfile extends BaseTest {
         Assert.assertTrue(DateFactory.getActualDayOfWeek().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfWeek()));
         Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));
     }
+
+    @Test(dataProvider = "genders")
+    public void changeGender(String gender1, String gender2) {
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
+
+        String gender = profileScreen.getGender();
+        EditGenderScreen editGender = profileScreen.clickOnEditGender();
+
+        if(gender.equals(gender1)){
+            editGender.fromFemaleToMale();
+            ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
+            Assert.assertEquals(newProfileScreen.getGender(), gender2);
+        }
+        else {
+            editGender.fromMaleToFemale();
+            ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
+            Assert.assertEquals(newProfileScreen.getGender(), gender1);
+        }
+    }
+
 }

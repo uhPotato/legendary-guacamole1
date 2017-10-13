@@ -27,10 +27,6 @@ public class MoviesScreen extends BaseTest {
         return (List<MobileElement>) driver.findElementsByClassName("android.support.v7.app.ActionBar$Tab");
     }
 
-    public static String getMoviesScreenTabId() {
-        return moviesScreenFactory.moviesScreenTab.getId();
-    }
-
     public static String getDisplayedDayOfMonth() {
         return moviesScreenFactory.displayedDayOfMonth.getText();
     }

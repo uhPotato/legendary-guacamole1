@@ -12,15 +12,12 @@ public class MoviesScreenFactory {
     @AndroidFindBy(id = "btnHamburger")
     public MobileElement profileButton;
 
-    @AndroidFindBy(id = "us.moviemates:id/tvTitle")
-    public MobileElement moviesScreenTab;
-
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='0']/android.widget.TextView[@index='3']")
+    @AndroidFindBy(id = "tv_date_picker_day")
     public MobileElement displayedDayOfMonth;
 
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='0']/android.widget.TextView[@index='2']")
+    @AndroidFindBy(id = "tv_date_picker_day_name")
     public MobileElement displayedDayOfWeek;
 
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='0']/android.widget.TextView[@index='1']")
+    @AndroidFindBy(id = "tv_date_picker_month_name")
     public MobileElement displayedMonth;
 }

@@ -102,7 +102,6 @@ public class UserProfile extends BaseTest {
 
         //3) assert that check mark is on the date
         Assert.assertTrue(moviesScreen.isCheckMarkDisplayed());
-        System.out.println(movieTitle + "MOVIE TITLE HERE");
 
         //4) iterate list with movies and find the one with the right title
         moviesScreen.getIndexOfInterestedMovie(movieTitle);

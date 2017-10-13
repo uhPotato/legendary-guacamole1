@@ -8,7 +8,7 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-sreenshots/
+screenshots/
 .idea/
 npm-debug.log.*
 *.iml

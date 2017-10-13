@@ -24,16 +24,30 @@ public class MoviesScreen extends BaseTest {
 
     public void clickInterested(int buttonIndex) {
         List<MobileElement> interestedButtonsList = driver.findElementsById("tbButtonInterested");
-        interestedButtonsList.get(buttonIndex);
+        interestedButtonsList.get(buttonIndex).click();
     }
 
+    // there's a hard coded '3' because tabs 'MOVIES' 'MATES' & 'CHATS' share the same id as movie titles, so I exclude them from the list.
     public String getMovieTitle(int movieIndex) {
         List<MobileElement> movieTitlesList = driver.findElementsById("tvTitle");
-        return movieTitlesList.get(movieIndex).getText();
+        return movieTitlesList.get(movieIndex + 3).getText();
     }
 
     public boolean isCheckMarkDisplayed() {
         return driver.findElementById("iv_movie_date_active_select").isDisplayed();
+    }
+
+    // there's a hard coded '3' because check previous comment
+    public int getIndexOfInterestedMovie(String movieTitle) {
+        List<MobileElement> movieTitlesList = driver.findElementsById("tvTitle");
+        for (MobileElement movieName:movieTitlesList) {
+            if (movieName.getText() == movieTitle) {
+                return movieTitlesList.indexOf(movieName) - 3;
+            } else return -1;
+        }
+
+
+        return -1;
     }
 
 }

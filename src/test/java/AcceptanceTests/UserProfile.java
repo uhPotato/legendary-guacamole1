@@ -35,8 +35,7 @@ public class UserProfile extends BaseTest {
     @DataProvider(name = "changeMovieIndex")
     public Object [][] createDataForMovieIndexing() {
         return new Object[][] {
-                {0},
-                {1}
+                {0}
         };
     }
 
@@ -89,23 +88,30 @@ public class UserProfile extends BaseTest {
 
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
-/*
-4) Проитерировать лист с фильмами и найти фильм с сохраненным названием
-5) Нажать еще раз на interested чтобы разчекать его
-6) проверить что чекмарка на дате нет
- */
-    @Test
-    public void markMovieInterested() {
+
+    @Test(dataProvider = "changeMovieIndex")
+    public void markMovieInterested(int[] movieIndexes) {
         MoviesScreen moviesScreen = new MoviesScreen();
+        int movieIndex = movieIndexes[0];
 
-        //1) Выбать фильм как interested
-        moviesScreen.clickInterested(0);
+        //1) mark a movie as 'interested'
+        moviesScreen.clickInterested(movieIndex);
 
-        //2) Сохранить название фильма в переменной
-        String movieTitle = moviesScreen.getMovieTitle(0);
-        System.out.print(movieTitle);
-        //3) Заверить, что чекмарк на дате появился
+        //2) save movie title in variable
+        String movieTitle = moviesScreen.getMovieTitle(movieIndex);
+
+        //3) assert that check mark is on the date
         Assert.assertTrue(moviesScreen.isCheckMarkDisplayed());
+        System.out.println(movieTitle + "MOVIE TITLE HERE");
+
+        //4) iterate list with movies and find the one with the right title
+        moviesScreen.getIndexOfInterestedMovie(movieTitle);
+
+        //5) click interested on the same movie one more time to 'uncheck' it
+        moviesScreen.clickInterested(movieIndex);
+
+        //6) verify that checkmark over date is not displayed
+        Assert.assertFalse(moviesScreen.isCheckMarkDisplayed());
 
     }
 

@@ -33,6 +33,12 @@ public class UserProfile extends BaseTest {
         };
     }
 
+    @DataProvider(name = "getAttributeNameAndTextToWait")
+    public Object[] createAttributeNameAndTextToWait() {
+        return new String[]{"text","MOVIES"};
+
+    }
+
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {
         System.out.println("login");
@@ -83,15 +89,15 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 
-    @Test
-    public void userLandedOnMoviesScreenAfterSignIn() {
-        waitForAttributeToBeVisible(By.id("us.moviemates:id/tvTitle"), "text", "MOVIES");
+    @Test(dataProvider = "getAttributeNameAndTextToWait")
+    public void userLandedOnMoviesScreenAfterSignIn(String[] attributeAndText) {
+        waitForAttributeToBeVisible(By.id(MoviesScreen.getMoviesScreenTabId()), attributeAndText[0], attributeAndText[1]);
         Assert.assertTrue(MoviesScreen.getListOfMainNavTabs().get(0).isSelected());
     }
 
-    @Test
-    public void highlightedDateMatchesActualDate() {
-        waitForAttributeToBeVisible(By.id("us.moviemates:id/tvTitle"), "text", "MOVIES");
+    @Test(dataProvider = "getAttributeNameAndTextToWait")
+    public void highlightedDateMatchesActualDate(String[] attributeAndText) {
+        waitForAttributeToBeVisible(By.id(MoviesScreen.getMoviesScreenTabId()), attributeAndText[0], attributeAndText[1]);
         Assert.assertTrue(DateFactory.getActualDayOfMonth().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfMonth()));
         Assert.assertTrue(DateFactory.getActualDayOfWeek().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfWeek()));
         Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));

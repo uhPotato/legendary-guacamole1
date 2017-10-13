@@ -1,6 +1,7 @@
 package AcceptanceTests;
 
 import PageObjects.LocationScreen;
+import PageObjects.EditGenderScreen;
 import PageObjects.MoviesScreen;
 import PageObjects.EditNameScreen;
 import PageObjects.ProfileScreen;
@@ -40,6 +41,13 @@ public class UserProfile extends BaseTest {
         };
     }
 
+    @DataProvider(name = "genders")
+    public Object[][] createDataForChangeGender() {
+        return  new Object[][] {
+                {"Female", "Male"},
+                {"Female", "Male"}
+        };
+    }
 
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {
@@ -93,6 +101,7 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 
+
     @Test(dataProvider = "changeLocations")
     public void changeLocation(String[] validLocations) {
         MoviesScreen moviesScreen = new MoviesScreen();
@@ -109,4 +118,27 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(profileScreen.getLocationField(), location);
 
     }
+
+
+    @Test(dataProvider = "genders")
+    public void changeGender(String gender1, String gender2) {
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
+
+        String gender = profileScreen.getGender();
+        EditGenderScreen editGender = profileScreen.clickOnEditGender();
+
+        if(gender.equals(gender1)){
+            editGender.fromFemaleToMale();
+            ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
+            Assert.assertEquals(newProfileScreen.getGender(), gender2);
+        }
+        else {
+            editGender.fromMaleToFemale();
+            ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
+            Assert.assertEquals(newProfileScreen.getGender(), gender1);
+        }
+    }
+
 }
+

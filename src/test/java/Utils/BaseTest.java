@@ -11,8 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 
 
 
+
+@org.testng.annotations.Listeners({Utils.Listeners.class})
 public class BaseTest {
 
     protected static AppiumDriver driver;

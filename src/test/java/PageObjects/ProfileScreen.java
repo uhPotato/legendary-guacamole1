@@ -14,6 +14,7 @@ public class ProfileScreen extends BaseTest {
     private ProfileScreenFactory profileScreenFactory = new ProfileScreenFactory();
 
     public ProfileScreen() {
+
         PageFactory.initElements(new AppiumFieldDecorator(driver), profileScreenFactory);
 
         waitForElementToLoad(profileScreenFactory.nameFieldElement);
@@ -42,4 +43,14 @@ public class ProfileScreen extends BaseTest {
     public String getLocationField() {
         return profileScreenFactory.locationEditElement.getText();
     }
+
+    public EditGenderScreen clickOnEditGender(){
+        profileScreenFactory.genderEditElement.click();
+        return new EditGenderScreen();
+    }
+
+    public String getGender(){
+        return profileScreenFactory.genderFieldElement.getText();
+    }
+
 }

@@ -17,8 +17,6 @@ public class EditNameScreen extends BaseTest {
         waitForElementToLoad(editNameScreenFactory.nameTextField);
         waitForElementToLoad(editNameScreenFactory.okButtonAfterNameChanging);
 
-    }
-
     public void setNameField(String newName) {
         editNameScreenFactory.nameTextField.clear();
         editNameScreenFactory.nameTextField.sendKeys(newName);

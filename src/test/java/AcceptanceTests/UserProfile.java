@@ -1,5 +1,6 @@
 package AcceptanceTests;
 
+import PageObjects.LocationScreen;
 import PageObjects.EditGenderScreen;
 import PageObjects.MoviesScreen;
 import PageObjects.EditNameScreen;
@@ -9,27 +10,34 @@ import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import sun.java2d.cmm.Profile;
 
 import java.util.List;
 
-/**
- * Created by idorovskikh on 1/18/17.
- */
+
 public class UserProfile extends BaseTest {
 
     @DataProvider(name = "changeValidNames")
-    public Object[][] createDataForValidTest() {
-        return new Object[][] {
+    public Object[][] createDataForValidChangeNameTest() {
+        return new Object[][]{
                 {"Boris"},
-                {"Yo"}
+                {"Igor"}
         };
     }
 
-    @DataProvider(name = "changeInvalidNames")
-    public Object[][] createDataForInvalidTest() {
-        return new Object[][] {
-                {"A"},
-                {"a"}
+    @DataProvider(name = "oneCharNames")
+    public Object[][] createDataForOneCharNameTest() {
+        return new Object[][]{
+                {"a"},
+                {"b"}
+        };
+    }
+
+    @DataProvider(name = "changeLocations")
+    public Object[][] createDataForLocationTest() {
+        return new Object[][]{
+                {"Sunnyvale, CA"},
+                {"Milpitas, CA"}
         };
     }
 
@@ -77,19 +85,40 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
-    @Test(dataProvider = "changeInvalidNames")
-    public void changeNameWithOneChar(String[] invalidNames) {
+
+    @Test(dataProvider = "oneCharNames")
+    public void changeNameWithOneChar(String[] oneChar) {
+
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
         EditNameScreen editNameScreen = previousProfileScreen.clickOnEditName();
 
-        String newName = invalidNames[0];
+        String newName = oneChar[0];
 
         editNameScreen.setNameField(newName);
         ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
 
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
+
+
+    @Test(dataProvider = "changeLocations")
+    public void changeLocation(String[] validLocations) {
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
+        LocationScreen locationScreen = profileScreen.clickOnEditLocation();
+
+        String location = validLocations[0];
+
+        locationScreen.setLocationField(location);
+        locationScreen.clickOkButton();
+
+        profileScreen.waitForLocationServerUpdate(location);
+
+        Assert.assertEquals(profileScreen.getLocationField(), location);
+
+    }
+
 
     @Test(dataProvider = "genders")
     public void changeGender(String gender1, String gender2) {
@@ -112,3 +141,4 @@ public class UserProfile extends BaseTest {
     }
 
 }
+

@@ -10,8 +10,12 @@ public class EditNameScreen extends BaseTest {
 
     private EditNameScreenFactory editNameScreenFactory = new EditNameScreenFactory();
 
+
     public EditNameScreen() {
         PageFactory.initElements(new AppiumFieldDecorator(driver), editNameScreenFactory);
+
+        waitForElementToLoad(editNameScreenFactory.nameTextField);
+        waitForElementToLoad(editNameScreenFactory.okButtonAfterNameChanging);
     }
 
     public void setNameField(String newName) {

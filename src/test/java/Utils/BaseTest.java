@@ -21,9 +21,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
-/**
- * Created by idorovskikh on 1/18/17.
- */
+
 
 
 @org.testng.annotations.Listeners({Utils.Listeners.class})
@@ -45,9 +43,9 @@ public class BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(id));
     }
 
-    protected static boolean waitForAttributeToBeVisible(By by, String attribute, String textToWait){
+    protected static void waitForAttributeToBeVisible(By by, String attribute, String textToWait){
         WebDriverWait wait = new WebDriverWait(driver,15);
-        return wait.until(ExpectedConditions.attributeToBe(by, attribute, textToWait));
+        wait.until(ExpectedConditions.attributeToBe(by, attribute, textToWait));
     }
 
     private void killUiAutomatorServer() throws IOException, InterruptedException {

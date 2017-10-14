@@ -44,4 +44,5 @@ public class ProfileScreen extends BaseTest {
         return profileScreenFactory.birthdayFieldElement.getText();
     }
 
+
 }

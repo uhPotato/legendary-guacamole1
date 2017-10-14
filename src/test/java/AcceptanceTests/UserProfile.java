@@ -1,6 +1,10 @@
 package AcceptanceTests;
 
 import PageObjects.*;
+import PageObjects.EditGenderScreen;
+import PageObjects.MoviesScreen;
+import PageObjects.EditNameScreen;
+import PageObjects.ProfileScreen;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
@@ -45,6 +49,7 @@ public class UserProfile extends BaseTest {
                 {"January 17, 1978"}
         };
     }
+
 
     @BeforeMethod
     private void successfulGoogleLoginWithValidCredential() {

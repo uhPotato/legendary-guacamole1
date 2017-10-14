@@ -1,9 +1,6 @@
 package AcceptanceTests;
 
-import PageObjects.EditGenderScreen;
-import PageObjects.MoviesScreen;
-import PageObjects.EditNameScreen;
-import PageObjects.ProfileScreen;
+import PageObjects.*;
 import Utils.BaseTest;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
@@ -38,6 +35,14 @@ public class UserProfile extends BaseTest {
         return  new Object[][] {
                 {"Female", "Male"},
                 {"Female", "Male"}
+        };
+    }
+
+    @DataProvider(name = "changeValidBirthdays")
+    public Object [][] createDataForValidChangeBirthdayTest() {
+        return new Object[][]{
+                {"December 15, 1975"},
+                {"January 17, 1978"}
         };
     }
 
@@ -109,6 +114,17 @@ public class UserProfile extends BaseTest {
             ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
             Assert.assertEquals(newProfileScreen.getGender(), gender1);
         }
+    }
+
+    @Test(dataProvider = "changeValidBirthdays")
+    public void changeBirthday(String[] newBirthdayData){
+        String newBirthday = newBirthdayData[0];
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
+        EditBirthdayScreen birthdayScreen = previousProfileScreen.clickOnEditBirthday();
+        birthdayScreen.changeBirthdayData(newBirthday);
+        ProfileScreen newProfileScreen = birthdayScreen.clickOnOkButtonAfterChangeingBirthdayData();
+        Assert.assertEquals(newProfileScreen.getBirthdayField(),newBirthday);
     }
 
 }

@@ -12,9 +12,9 @@ public class ProfileScreen extends BaseTest {
     private ProfileScreenFactory profileScreenFactory = new ProfileScreenFactory();
 
     public ProfileScreen() {
+
         PageFactory.initElements(new AppiumFieldDecorator(driver), profileScreenFactory);
         waitForElementToLoad(profileScreenFactory.nameEditElement);
-
     }
 
     public String getNameField() {
@@ -24,6 +24,15 @@ public class ProfileScreen extends BaseTest {
     public EditNameScreen clickOnEditName() {
         profileScreenFactory.nameEditElement.click();
         return new EditNameScreen();
+    }
+
+    public EditGenderScreen clickOnEditGender(){
+        profileScreenFactory.genderEditElement.click();
+        return new EditGenderScreen();
+    }
+
+    public String getGender(){
+        return profileScreenFactory.genderFieldElement.getText();
     }
 
 }

@@ -37,8 +37,6 @@ public class MoviesScreen extends BaseTest {
 
     public static String getDisplayedMonth() {
         return moviesScreenFactory.displayedMonth.getText();
-
-
     }
 }
 

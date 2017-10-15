@@ -2,19 +2,21 @@ package PageObjects;
 
 import ScreenFactories.ProfileScreenFactory;
 import Utils.BaseTest;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 
 public class ProfileScreen extends BaseTest {
-
 
     private static ProfileScreenFactory profileScreenFactory = new ProfileScreenFactory();
 
     public ProfileScreen() {
 
         PageFactory.initElements(new AppiumFieldDecorator(driver), profileScreenFactory);
+
+        waitForElementToLoad(profileScreenFactory.nameFieldElement);
         waitForElementToLoad(profileScreenFactory.nameEditElement);
+        waitForElementToLoad(profileScreenFactory.locationEditElement);
     }
 
     public String getNameField() {
@@ -26,12 +28,25 @@ public class ProfileScreen extends BaseTest {
         return new EditNameScreen();
     }
 
-    public EditGenderScreen clickOnEditGender(){
+    public LocationScreen clickOnEditLocation() {
+        profileScreenFactory.locationEditElement.click();
+        return new LocationScreen();
+    }
+
+    public void waitForLocationServerUpdate(String location) {
+        waitForAttributeToBeVisible(By.id("tvLocationValue"), "text", location);
+    }
+
+    public String getLocationField() {
+        return profileScreenFactory.locationEditElement.getText();
+    }
+
+    public EditGenderScreen clickOnEditGender() {
         profileScreenFactory.genderEditElement.click();
         return new EditGenderScreen();
     }
 
-    public String getGender(){
+    public String getGender() {
         return profileScreenFactory.genderFieldElement.getText();
     }
 

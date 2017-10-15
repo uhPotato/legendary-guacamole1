@@ -13,15 +13,15 @@ import static org.testng.FileAssert.fail;
 
 public class MoviesScreen extends BaseTest {
 
-    public MoviesScreenFactory moviesScreenFacrory = new MoviesScreenFactory();
+    private MoviesScreenFactory moviesScreenFactory = new MoviesScreenFactory();
 
     public MoviesScreen() {
-        PageFactory.initElements(new AppiumFieldDecorator(driver), moviesScreenFacrory);
-        waitForElementToLoad(moviesScreenFacrory.profileButton);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), moviesScreenFactory);
+        waitForElementToLoad(moviesScreenFactory.profileButton);
     }
 
     public ProfileScreen clickOnProfileButton() {
-        moviesScreenFacrory.profileButton.click();
+        moviesScreenFactory.profileButton.click();
         return new ProfileScreen();
     }
 

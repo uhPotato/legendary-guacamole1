@@ -1,7 +1,7 @@
 package Utils;
 
 import net.sf.cglib.core.Local;
-import org.junit.Test;
+import org.testng.annotations.*;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

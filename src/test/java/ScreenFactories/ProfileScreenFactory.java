@@ -18,6 +18,6 @@ public class ProfileScreenFactory {
     public MobileElement genderFieldElement;
 
     @AndroidFindBy(id = "ivGender")
-    public  MobileElement genderEditElement;
+    public MobileElement genderEditElement;
 
 }

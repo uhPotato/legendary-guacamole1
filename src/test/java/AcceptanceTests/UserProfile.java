@@ -1,7 +1,6 @@
 package AcceptanceTests;
 
 import PageObjects.EditGenderScreen;
-import PageObjects.MoviesScreen;
 import PageObjects.EditNameScreen;
 import PageObjects.MoviesScreen;
 import PageObjects.ProfileScreen;
@@ -21,7 +20,7 @@ public class UserProfile extends BaseTest {
 
     @DataProvider(name = "changeValidNames")
     public Object[][] createDataForValidTest() {
-        return new Object[][] {
+        return new Object[][]{
                 {"Boris"},
                 {"Yo"}
         };
@@ -29,7 +28,7 @@ public class UserProfile extends BaseTest {
 
     @DataProvider(name = "changeInvalidNames")
     public Object[][] createDataForInvalidTest() {
-        return new Object[][] {
+        return new Object[][]{
                 {"A"},
                 {"a"}
         };
@@ -37,7 +36,7 @@ public class UserProfile extends BaseTest {
 
     @DataProvider(name = "genders")
     public Object[][] createDataForChangeGender() {
-        return  new Object[][] {
+        return new Object[][]{
                 {"Female", "Male"},
                 {"Female", "Male"}
         };
@@ -95,13 +94,13 @@ public class UserProfile extends BaseTest {
 
     @Test
     public void userLandedOnMoviesScreenAfterSignIn() {
-        waitForAttributeToBeVisible(By.id("tvTitle"), "text", "MOVIES");
+        new MoviesScreen();
         Assert.assertTrue(MoviesScreen.getListOfMainNavTabs().get(0).isSelected());
     }
 
     @Test
     public void highlightedDateMatchesActualDate() {
-        waitForAttributeToBeVisible(By.id("tvTitle"),  "text", "MOVIES");
+        new MoviesScreen();
         Assert.assertTrue(DateFactory.getActualDayOfMonth().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfMonth()));
         Assert.assertTrue(DateFactory.getActualDayOfWeek().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfWeek()));
         Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));
@@ -115,12 +114,11 @@ public class UserProfile extends BaseTest {
         String gender = profileScreen.getGender();
         EditGenderScreen editGender = profileScreen.clickOnEditGender();
 
-        if(gender.equals(gender1)){
+        if (gender.equals(gender1)) {
             editGender.fromFemaleToMale();
             ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
             Assert.assertEquals(newProfileScreen.getGender(), gender2);
-        }
-        else {
+        } else {
             editGender.fromMaleToFemale();
             ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
             Assert.assertEquals(newProfileScreen.getGender(), gender1);

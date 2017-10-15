@@ -15,9 +15,10 @@ import org.testng.annotations.BeforeSuite;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import org.testng.annotations.Listeners;
 
 
-@org.testng.annotations.Listeners({Utils.Listeners.class})
+@Listeners({Utils.Listeners.class})
 public class BaseTest {
 
     protected static AppiumDriver driver;

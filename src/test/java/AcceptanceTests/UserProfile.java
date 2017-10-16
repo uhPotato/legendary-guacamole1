@@ -1,19 +1,11 @@
 package AcceptanceTests;
 
-import PageObjects.LocationScreen;
-import PageObjects.EditGenderScreen;
-import PageObjects.MoviesScreen;
-import PageObjects.EditNameScreen;
-import PageObjects.ProfileScreen;
+import PageObjects.*;
 import Utils.BaseTest;
-import io.appium.java_client.MobileElement;
+import Utils.DateFactory;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import sun.java2d.cmm.Profile;
-
-import java.util.List;
-
 
 public class UserProfile extends BaseTest {
 
@@ -43,7 +35,7 @@ public class UserProfile extends BaseTest {
 
     @DataProvider(name = "genders")
     public Object[][] createDataForChangeGender() {
-        return  new Object[][] {
+        return new Object[][]{
                 {"Female", "Male"},
                 {"Female", "Male"}
         };
@@ -85,7 +77,6 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
-
     @Test(dataProvider = "oneCharNames")
     public void changeNameWithOneChar(String[] oneChar) {
 
@@ -101,6 +92,19 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 
+    @Test
+    public void userLandedOnMoviesScreenAfterSignIn() {
+        new MoviesScreen();
+        Assert.assertTrue(MoviesScreen.getListOfMainNavTabs().get(0).isSelected());
+    }
+
+    @Test
+    public void highlightedDateMatchesActualDate() {
+        new MoviesScreen();
+        Assert.assertTrue(DateFactory.getActualDayOfMonth().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfMonth()));
+        Assert.assertTrue(DateFactory.getActualDayOfWeek().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfWeek()));
+        Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));
+    }
 
     @Test(dataProvider = "changeLocations")
     public void changeLocation(String[] validLocations) {
@@ -116,9 +120,7 @@ public class UserProfile extends BaseTest {
         profileScreen.waitForLocationServerUpdate(location);
 
         Assert.assertEquals(profileScreen.getLocationField(), location);
-
     }
-
 
     @Test(dataProvider = "genders")
     public void changeGender(String gender1, String gender2) {
@@ -128,17 +130,14 @@ public class UserProfile extends BaseTest {
         String gender = profileScreen.getGender();
         EditGenderScreen editGender = profileScreen.clickOnEditGender();
 
-        if(gender.equals(gender1)){
+        if (gender.equals(gender1)) {
             editGender.fromFemaleToMale();
             ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
             Assert.assertEquals(newProfileScreen.getGender(), gender2);
-        }
-        else {
+        } else {
             editGender.fromMaleToFemale();
             ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
             Assert.assertEquals(newProfileScreen.getGender(), gender1);
         }
     }
-
 }
-

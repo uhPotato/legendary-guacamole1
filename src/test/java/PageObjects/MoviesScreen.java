@@ -9,11 +9,13 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
+
 import static org.testng.FileAssert.fail;
+
 
 public class MoviesScreen extends BaseTest {
 
-    private MoviesScreenFactory moviesScreenFactory = new MoviesScreenFactory();
+    public static MoviesScreenFactory moviesScreenFactory = new MoviesScreenFactory();
 
     public MoviesScreen() {
         PageFactory.initElements(new AppiumFieldDecorator(driver), moviesScreenFactory);
@@ -50,7 +52,6 @@ public class MoviesScreen extends BaseTest {
         return true;
     }
 
-    // there's a hard coded '3' because check previous comment
     public int getIndexOfInterestedMovie(String movieTitle) {
         List<MobileElement> movieTitlesList = driver.findElementsById("tvTitle");
         for (MobileElement movieName:movieTitlesList) {
@@ -58,9 +59,23 @@ public class MoviesScreen extends BaseTest {
                 return movieTitlesList.indexOf(movieName) - 3;
             } else return -1;
         }
-
-
         return -1;
+    }
+
+    public static List<MobileElement> getListOfMainNavTabs() {
+        return (List<MobileElement>) driver.findElementsByClassName("android.support.v7.app.ActionBar$Tab");
+    }
+
+    public static String getDisplayedDayOfMonth() {
+        return moviesScreenFactory.displayedDayOfMonth.getText();
+    }
+
+    public static String getDisplayedDayOfWeek() {
+        return moviesScreenFactory.displayedDayOfWeek.getText();
+    }
+
+    public static String getDisplayedMonth() {
+        return moviesScreenFactory.displayedMonth.getText();
     }
 
 }

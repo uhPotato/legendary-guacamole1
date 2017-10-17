@@ -2,14 +2,12 @@ package PageObjects;
 
 import ScreenFactories.EditNameScreenFactory;
 import Utils.BaseTest;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 
 public class EditNameScreen extends BaseTest {
 
     private EditNameScreenFactory editNameScreenFactory = new EditNameScreenFactory();
-
 
     public EditNameScreen() {
         PageFactory.initElements(new AppiumFieldDecorator(driver), editNameScreenFactory);
@@ -28,5 +26,4 @@ public class EditNameScreen extends BaseTest {
         editNameScreenFactory.okButtonAfterNameChanging.click();
         return new ProfileScreen();
     }
-
 }

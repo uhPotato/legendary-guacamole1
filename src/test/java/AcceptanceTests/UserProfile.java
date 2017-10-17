@@ -1,19 +1,13 @@
 package AcceptanceTests;
 
-
-import PageObjects.LocationScreen;
-import PageObjects.EditGenderScreen;
-import PageObjects.MoviesScreen;
-import PageObjects.EditNameScreen;
-import PageObjects.MoviesScreen;
-import PageObjects.ProfileScreen;
+import sun.java2d.cmm.Profile;
+import java.util.List;
+import PageObjects.*;
 import Utils.BaseTest;
+import Utils.DateFactory;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import sun.java2d.cmm.Profile;
-import java.util.List;
-
 
 public class UserProfile extends BaseTest {
 
@@ -43,7 +37,7 @@ public class UserProfile extends BaseTest {
 
     @DataProvider(name = "genders")
     public Object[][] createDataForChangeGender() {
-        return  new Object[][] {
+        return new Object[][]{
                 {"Female", "Male"},
                 {"Female", "Male"}
         };
@@ -92,7 +86,6 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
-
     @Test(dataProvider = "oneCharNames")
     public void changeNameWithOneChar(String[] oneChar) {
 
@@ -108,29 +101,34 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 
+
     @Test(dataProvider = "changeMovieIndex")
     public void markMovieInterested(int[] movieIndexes) {
         MoviesScreen moviesScreen = new MoviesScreen();
         int movieIndex = movieIndexes[0];
 
-        //1) mark a movie as 'interested'
         moviesScreen.clickInterested(movieIndex);
-
-        //2) save movie title in variable
         String movieTitle = moviesScreen.getMovieTitle(movieIndex);
-
-        //3) assert that check mark is on the date
         Assert.assertTrue(moviesScreen.isCheckMarkDisplayed());
-
-        //4) iterate list with movies and find the one with the right title
         moviesScreen.getIndexOfInterestedMovie(movieTitle);
-
-        //5) click interested on the same movie one more time to 'uncheck' it
         moviesScreen.clickInterested(movieIndex);
-
-        //6) verify that checkmark over date is not displayed
+  
         Assert.assertTrue(moviesScreen.isCheckMarkNotDisplayed());
-  }
+    }
+
+    @Test
+    public void userLandedOnMoviesScreenAfterSignIn() {
+        new MoviesScreen();
+        Assert.assertTrue(MoviesScreen.getListOfMainNavTabs().get(0).isSelected());
+    }
+
+    @Test
+    public void highlightedDateMatchesActualDate() {
+        new MoviesScreen();
+        Assert.assertTrue(DateFactory.getActualDayOfMonth().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfMonth()));
+        Assert.assertTrue(DateFactory.getActualDayOfWeek().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfWeek()));
+        Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));
+    }
 
     @Test(dataProvider = "changeLocations")
     public void changeLocation(String[] validLocations) {
@@ -146,9 +144,7 @@ public class UserProfile extends BaseTest {
         profileScreen.waitForLocationServerUpdate(location);
 
         Assert.assertEquals(profileScreen.getLocationField(), location);
-
     }
-
 
     @Test(dataProvider = "genders")
     public void changeGender(String gender1, String gender2) {
@@ -158,17 +154,14 @@ public class UserProfile extends BaseTest {
         String gender = profileScreen.getGender();
         EditGenderScreen editGender = profileScreen.clickOnEditGender();
 
-        if(gender.equals(gender1)){
+        if (gender.equals(gender1)) {
             editGender.fromFemaleToMale();
             ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
             Assert.assertEquals(newProfileScreen.getGender(), gender2);
-        }
-        else {
+        } else {
             editGender.fromMaleToFemale();
             ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
             Assert.assertEquals(newProfileScreen.getGender(), gender1);
         }
     }
-
 }
-

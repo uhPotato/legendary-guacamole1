@@ -2,16 +2,13 @@ package PageObjects;
 
 import ScreenFactories.ProfileScreenFactory;
 import Utils.BaseTest;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
-import sun.jvm.hotspot.debugger.Page;
 
 public class ProfileScreen extends BaseTest {
 
-    private ProfileScreenFactory profileScreenFactory = new ProfileScreenFactory();
+    private static ProfileScreenFactory profileScreenFactory = new ProfileScreenFactory();
 
     public ProfileScreen() {
 
@@ -44,12 +41,12 @@ public class ProfileScreen extends BaseTest {
         return profileScreenFactory.locationEditElement.getText();
     }
 
-    public EditGenderScreen clickOnEditGender(){
+    public EditGenderScreen clickOnEditGender() {
         profileScreenFactory.genderEditElement.click();
         return new EditGenderScreen();
     }
 
-    public String getGender(){
+    public String getGender() {
         return profileScreenFactory.genderFieldElement.getText();
     }
 

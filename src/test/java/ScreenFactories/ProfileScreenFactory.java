@@ -1,7 +1,6 @@
 package ScreenFactories;
 
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AndroidBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 
 
@@ -20,6 +19,6 @@ public class ProfileScreenFactory {
     public MobileElement genderFieldElement;
 
     @AndroidFindBy(id = "ivGender")
-    public  MobileElement genderEditElement;
+    public MobileElement genderEditElement;
 
 }

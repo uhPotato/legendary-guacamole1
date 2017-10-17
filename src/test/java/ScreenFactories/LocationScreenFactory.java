@@ -3,11 +3,11 @@ package ScreenFactories;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 
-public class EditNameScreenFactory {
+public class LocationScreenFactory {
 
-    @AndroidFindBy(id = "edit_text")
-    public MobileElement nameTextField;
+    @AndroidFindBy(id = "etEnterPosition")
+    public MobileElement locationTextField;
 
     @AndroidFindBy(id = "android:id/button1")
-    public MobileElement okButtonAfterNameChanging;
+    public MobileElement okButton;
 }

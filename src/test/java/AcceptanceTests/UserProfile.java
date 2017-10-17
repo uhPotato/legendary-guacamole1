@@ -6,37 +6,40 @@ import PageObjects.MoviesScreen;
 import PageObjects.EditNameScreen;
 import PageObjects.ProfileScreen;
 import Utils.BaseTest;
-import io.appium.java_client.MobileElement;
+import Utils.DateFactory;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.util.List;
-
-/**
- * Created by idorovskikh on 1/18/17.
- */
 public class UserProfile extends BaseTest {
 
     @DataProvider(name = "changeValidNames")
-    public Object[][] createDataForValidTest() {
-        return new Object[][] {
+    public Object[][] createDataForValidChangeNameTest() {
+        return new Object[][]{
                 {"Boris"},
-                {"Yo"}
+                {"Igor"}
         };
     }
 
-    @DataProvider(name = "changeInvalidNames")
-    public Object[][] createDataForInvalidTest() {
-        return new Object[][] {
-                {"A"},
-                {"a"}
+    @DataProvider(name = "oneCharNames")
+    public Object[][] createDataForOneCharNameTest() {
+        return new Object[][]{
+                {"a"},
+                {"b"}
+        };
+    }
+
+    @DataProvider(name = "changeLocations")
+    public Object[][] createDataForLocationTest() {
+        return new Object[][]{
+                {"Sunnyvale, CA"},
+                {"Milpitas, CA"}
         };
     }
 
     @DataProvider(name = "genders")
     public Object[][] createDataForChangeGender() {
-        return  new Object[][] {
+        return new Object[][]{
                 {"Female", "Male"},
                 {"Female", "Male"}
         };
@@ -52,6 +55,8 @@ public class UserProfile extends BaseTest {
 
 
     @BeforeMethod
+
+    @BeforeMethod(groups = "acceptance")
     private void successfulGoogleLoginWithValidCredential() {
         System.out.println("login");
         driver.findElement(By.id("btnGoogleLogin")).click();
@@ -67,13 +72,13 @@ public class UserProfile extends BaseTest {
         Assert.assertTrue(driver.findElementById("btnHamburger").isDisplayed());
     }
 
-    @AfterMethod
+    @AfterMethod(groups = "acceptance")
     public void afterEachTest() {
         System.out.println("Resetting App");
         driver.resetApp();
     }
 
-    @Test(dataProvider = "changeValidNames")
+    @Test(groups = "acceptance", dataProvider = "changeValidNames")
     public void changeName(String[] validNames) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
@@ -87,13 +92,14 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
-    @Test(dataProvider = "changeInvalidNames")
-    public void changeNameWithOneChar(String[] invalidNames) {
+    @Test(groups = "acceptance", dataProvider = "oneCharNames")
+    public void changeNameWithOneChar(String[] oneChar) {
+
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
         EditNameScreen editNameScreen = previousProfileScreen.clickOnEditName();
 
-        String newName = invalidNames[0];
+        String newName = oneChar[0];
 
         editNameScreen.setNameField(newName);
         ProfileScreen newProfileScreen = editNameScreen.clickOnOkButtonAfterNameChanging();
@@ -101,7 +107,37 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 
-    @Test(dataProvider = "genders")
+    @Test(groups = "acceptance")
+    public void userLandedOnMoviesScreenAfterSignIn() {
+        new MoviesScreen();
+        Assert.assertTrue(MoviesScreen.getListOfMainNavTabs().get(0).isSelected());
+    }
+
+    @Test(groups = "acceptance")
+    public void highlightedDateMatchesActualDate() {
+        new MoviesScreen();
+        Assert.assertTrue(DateFactory.getActualDayOfMonth().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfMonth()));
+        Assert.assertTrue(DateFactory.getActualDayOfWeek().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfWeek()));
+        Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));
+    }
+
+    @Test(groups = "acceptance", dataProvider = "changeLocations")
+    public void changeLocation(String[] validLocations) {
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
+        LocationScreen locationScreen = profileScreen.clickOnEditLocation();
+
+        String location = validLocations[0];
+
+        locationScreen.setLocationField(location);
+        locationScreen.clickOkButton();
+
+        profileScreen.waitForLocationServerUpdate(location);
+
+        Assert.assertEquals(profileScreen.getLocationField(), location);
+    }
+
+    @Test(groups = "acceptance", dataProvider = "genders")
     public void changeGender(String gender1, String gender2) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
@@ -109,12 +145,11 @@ public class UserProfile extends BaseTest {
         String gender = profileScreen.getGender();
         EditGenderScreen editGender = profileScreen.clickOnEditGender();
 
-        if(gender.equals(gender1)){
+        if (gender.equals(gender1)) {
             editGender.fromFemaleToMale();
             ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
             Assert.assertEquals(newProfileScreen.getGender(), gender2);
-        }
-        else {
+        } else {
             editGender.fromMaleToFemale();
             ProfileScreen newProfileScreen = editGender.clickOnOkButtonAfterGenderChange();
             Assert.assertEquals(newProfileScreen.getGender(), gender1);
@@ -131,5 +166,6 @@ public class UserProfile extends BaseTest {
         ProfileScreen newProfileScreen = birthdayScreen.clickOnOkButtonAfterChangeingBirthdayData();
         Assert.assertEquals(newProfileScreen.getBirthdayField(),newBirthday);
     }
+
 
 }

@@ -32,7 +32,6 @@ public class MoviesScreen extends BaseTest {
         interestedButtonsList.get(buttonIndex).click();
     }
 
-    // there's a hard coded '3' because tabs 'MOVIES' 'MATES' & 'CHATS' share the same id as movie titles, so I exclude them from the list.
     public String getMovieTitle(int movieIndex) {
         List<MobileElement> movieTitlesList = driver.findElementsById("tvTitle");
         return movieTitlesList.get(movieIndex + 3).getText();
@@ -55,7 +54,7 @@ public class MoviesScreen extends BaseTest {
     public int getIndexOfInterestedMovie(String movieTitle) {
         List<MobileElement> movieTitlesList = driver.findElementsById("tvTitle");
         for (MobileElement movieName:movieTitlesList) {
-            if (movieName.getText() == movieTitle) {
+            if (movieName.getText().equals(movieTitle)) {
                 return movieTitlesList.indexOf(movieName) - 3;
             } else return -1;
         }

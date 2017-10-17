@@ -1,13 +1,14 @@
 package AcceptanceTests;
 
-import sun.java2d.cmm.Profile;
-import java.util.List;
 import PageObjects.*;
 import Utils.BaseTest;
 import Utils.DateFactory;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 public class UserProfile extends BaseTest {
 
@@ -46,7 +47,8 @@ public class UserProfile extends BaseTest {
     @DataProvider(name = "changeMovieIndex")
     public Object [][] createDataForMovieIndexing() {
         return new Object[][] {
-                {0}
+                {0},
+                {1}
         };
     }
 

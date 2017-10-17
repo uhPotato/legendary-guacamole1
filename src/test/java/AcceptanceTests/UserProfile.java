@@ -41,7 +41,7 @@ public class UserProfile extends BaseTest {
         };
     }
 
-    @BeforeMethod
+    @BeforeMethod(groups = "acceptance")
     private void successfulGoogleLoginWithValidCredential() {
         System.out.println("login");
         driver.findElement(By.id("btnGoogleLogin")).click();
@@ -57,13 +57,13 @@ public class UserProfile extends BaseTest {
         Assert.assertTrue(driver.findElementById("btnHamburger").isDisplayed());
     }
 
-    @AfterMethod
+    @AfterMethod(groups = "acceptance")
     public void afterEachTest() {
         System.out.println("Resetting App");
         driver.resetApp();
     }
 
-    @Test(dataProvider = "changeValidNames")
+    @Test(groups = "acceptance", dataProvider = "changeValidNames")
     public void changeName(String[] validNames) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
@@ -77,7 +77,7 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(newProfileScreen.getNameField(), newName);
     }
 
-    @Test(dataProvider = "oneCharNames")
+    @Test(groups = "acceptance", dataProvider = "oneCharNames")
     public void changeNameWithOneChar(String[] oneChar) {
 
         MoviesScreen moviesScreen = new MoviesScreen();
@@ -92,13 +92,13 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(previousProfileScreen.getNameField(), newProfileScreen.getNameField());
     }
 
-    @Test
+    @Test(groups = "acceptance")
     public void userLandedOnMoviesScreenAfterSignIn() {
         new MoviesScreen();
         Assert.assertTrue(MoviesScreen.getListOfMainNavTabs().get(0).isSelected());
     }
 
-    @Test
+    @Test(groups = "acceptance")
     public void highlightedDateMatchesActualDate() {
         new MoviesScreen();
         Assert.assertTrue(DateFactory.getActualDayOfMonth().equalsIgnoreCase(MoviesScreen.getDisplayedDayOfMonth()));
@@ -106,7 +106,7 @@ public class UserProfile extends BaseTest {
         Assert.assertTrue(DateFactory.getActualMonth().contains(MoviesScreen.getDisplayedMonth()));
     }
 
-    @Test(dataProvider = "changeLocations")
+    @Test(groups = "acceptance", dataProvider = "changeLocations")
     public void changeLocation(String[] validLocations) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();
@@ -122,7 +122,7 @@ public class UserProfile extends BaseTest {
         Assert.assertEquals(profileScreen.getLocationField(), location);
     }
 
-    @Test(dataProvider = "genders")
+    @Test(groups = "acceptance", dataProvider = "genders")
     public void changeGender(String gender1, String gender2) {
         MoviesScreen moviesScreen = new MoviesScreen();
         ProfileScreen profileScreen = moviesScreen.clickOnProfileButton();

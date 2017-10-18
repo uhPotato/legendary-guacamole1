@@ -21,4 +21,11 @@ public class ProfileScreenFactory {
     @AndroidFindBy(id = "ivGender")
     public MobileElement genderEditElement;
 
+    @AndroidFindBy(id = "tvBirthValue")
+    public MobileElement birthdayFieldElement;
+
+    @AndroidFindBy(id = "ivBirth")
+    public MobileElement birthdayEditElement;
+
+
 }

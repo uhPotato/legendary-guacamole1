@@ -1,6 +1,10 @@
 package AcceptanceTests;
 
 import PageObjects.*;
+import PageObjects.EditGenderScreen;
+import PageObjects.MoviesScreen;
+import PageObjects.EditNameScreen;
+import PageObjects.ProfileScreen;
 import Utils.BaseTest;
 import Utils.DateFactory;
 import org.openqa.selenium.By;
@@ -40,6 +44,17 @@ public class UserProfile extends BaseTest {
                 {"Female", "Male"}
         };
     }
+
+    @DataProvider(name = "changeValidBirthdays")
+    public Object [][] createDataForValidChangeBirthdayTest() {
+        return new Object[][]{
+                {"December 15, 1975"},
+                {"January 17, 1978"}
+        };
+    }
+
+
+   
 
     @BeforeMethod(groups = "acceptance")
     private void successfulGoogleLoginWithValidCredential() {
@@ -140,4 +155,17 @@ public class UserProfile extends BaseTest {
             Assert.assertEquals(newProfileScreen.getGender(), gender1);
         }
     }
+
+    @Test(groups = "acceptance", dataProvider = "changeValidBirthdays")
+    public void changeBirthday(String[] newBirthdayData){
+        String newBirthday = newBirthdayData[0];
+        MoviesScreen moviesScreen = new MoviesScreen();
+        ProfileScreen previousProfileScreen = moviesScreen.clickOnProfileButton();
+        EditBirthdayScreen birthdayScreen = previousProfileScreen.clickOnEditBirthday();
+        birthdayScreen.changeBirthdayData(newBirthday);
+        ProfileScreen newProfileScreen = birthdayScreen.clickOnOkButtonAfterChangeingBirthdayData();
+        Assert.assertEquals(newProfileScreen.getBirthdayField(),newBirthday);
+    }
+
+
 }

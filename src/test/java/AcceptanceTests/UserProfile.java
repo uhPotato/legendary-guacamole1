@@ -54,7 +54,7 @@ public class UserProfile extends BaseTest {
     }
 
 
-    @BeforeMethod
+   
 
     @BeforeMethod(groups = "acceptance")
     private void successfulGoogleLoginWithValidCredential() {
@@ -156,7 +156,7 @@ public class UserProfile extends BaseTest {
         }
     }
 
-    @Test(dataProvider = "changeValidBirthdays")
+    @Test(groups = "acceptance", dataProvider = "changeValidBirthdays")
     public void changeBirthday(String[] newBirthdayData){
         String newBirthday = newBirthdayData[0];
         MoviesScreen moviesScreen = new MoviesScreen();

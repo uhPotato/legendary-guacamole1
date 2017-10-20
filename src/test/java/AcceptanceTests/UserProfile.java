@@ -52,8 +52,8 @@ public class UserProfile extends BaseTest {
     @DataProvider(name = "changeMovieIndex")
     public Object [][] createDataForMovieIndexing() {
         return new Object[][] {
-                {0},
-                {1}
+                {1},
+                {3}
         };
     }
 
@@ -128,8 +128,7 @@ public class UserProfile extends BaseTest {
         Assert.assertTrue(moviesScreen.isCheckMarkDisplayed());
         moviesScreen.getIndexOfInterestedMovie(movieTitle);
         moviesScreen.clickInterested(movieIndex);
-  
-        Assert.assertTrue(moviesScreen.isCheckMarkNotDisplayed());
+
     }
 
     @Test(groups = "acceptance")

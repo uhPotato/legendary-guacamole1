@@ -11,6 +11,15 @@ public class MoviesScreenFactory {
     @AndroidFindBy(id = "btnHamburger")
     public MobileElement profileButton;
 
+    @AndroidFindBy (id = "tvTitle")
+    public MobileElement movieTitle;
+
+    @AndroidFindBy (id = "iv_movie_date_active_select")
+    public MobileElement movieDateActiveCheckMark;
+
+    @AndroidFindBy (id = "tbButtonInterested")
+    public MobileElement interestedButton;
+
     @AndroidFindBy(id = "tv_date_picker_day")
     public MobileElement displayedDayOfMonth;
 
@@ -19,4 +28,5 @@ public class MoviesScreenFactory {
 
     @AndroidFindBy(id = "tv_date_picker_month_name")
     public MobileElement displayedMonth;
+
 }

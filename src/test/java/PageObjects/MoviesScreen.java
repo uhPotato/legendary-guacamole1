@@ -9,9 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 
-//import static org.testng.FileAssert.fail;
-
-
 public class MoviesScreen extends BaseTest {
 
     public static MoviesScreenFactory moviesScreenFactory = new MoviesScreenFactory();

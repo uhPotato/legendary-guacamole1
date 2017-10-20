@@ -15,4 +15,8 @@ class AppiumServer {
     static void stopAppiumServer() throws InterruptedException, IOException {
         service.stop();
     }
+    static int testStaticImport(){
+        return 100;
+    }
+
 }

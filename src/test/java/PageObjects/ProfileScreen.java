@@ -50,4 +50,14 @@ public class ProfileScreen extends BaseTest {
         return profileScreenFactory.genderFieldElement.getText();
     }
 
+    public EditBirthdayScreen clickOnEditBirthday() {
+        profileScreenFactory.birthdayEditElement.click();
+        return new EditBirthdayScreen();
+    }
+
+    public String getBirthdayField(){
+        return profileScreenFactory.birthdayFieldElement.getText();
+    }
+
+
 }

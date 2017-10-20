@@ -6,8 +6,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +18,8 @@ import static Utils.BaseTest.driver;
  */
 public class Listeners implements ITestListener{
 
+
+    ProcessTestRunnable processTestRunnable = null;
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
@@ -56,11 +57,35 @@ public class Listeners implements ITestListener{
     @Override
     public void onStart(ITestContext iTestContext) {
             deleteDir(new File("screenshots"));
+
+            String startDir = System.getProperty("user.dir");
+            ProcessBuilder pb = new ProcessBuilder("adb","logcat","-d", "MainActivity:V");
+            pb.directory(new File(startDir));
+            pb.redirectErrorStream(true);
+
+            Process p = null;
+            try {
+                p = pb.start();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            String nameOfLogs = iTestContext.getName() +"logs.log";
+            processTestRunnable = new ProcessTestRunnable(p, nameOfLogs);
+            Thread logThread = new Thread(processTestRunnable);
+            logThread.start();
+
+        try {
+            p.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
     public void onFinish(ITestContext iTestContext) {
-
+            processTestRunnable.killProcess();
     }
 
     private void captureScreenShot(ITestResult result, String status) throws IOException {
@@ -110,6 +135,44 @@ public class Listeners implements ITestListener{
             }
         }
         return dir.delete();
+    }
+
+    static class ProcessTestRunnable implements Runnable {
+
+            Process p;
+            BufferedReader  br;
+            String nameOfFile;
+
+            ProcessTestRunnable(Process p, String nameOfFile) {
+                this.p = p;
+                this.nameOfFile = nameOfFile;
+            }
+
+        @Override
+        public void run() {
+            try {
+                InputStreamReader isr = new InputStreamReader(p.getInputStream());
+                br = new BufferedReader(isr);
+                String line = null;
+                PrintWriter writer = null;
+                try {
+                     writer = new PrintWriter(nameOfFile, "UTF-8");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                while((line = br.readLine()) != null){
+                    writer.println(line);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void killProcess() {
+                this.p.destroy();
+        }
     }
 
 }

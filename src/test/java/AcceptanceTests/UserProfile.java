@@ -122,12 +122,8 @@ public class UserProfile extends BaseTest {
     public void markMovieInterested(int[] movieIndexes) {
         MoviesScreen moviesScreen = new MoviesScreen();
         int movieIndex = movieIndexes[0];
-
         moviesScreen.clickInterested(movieIndex);
-        String movieTitle = moviesScreen.getMovieTitle(movieIndex);
         Assert.assertTrue(moviesScreen.isCheckMarkDisplayed());
-        moviesScreen.getIndexOfInterestedMovie(movieTitle);
-        moviesScreen.clickInterested(movieIndex);
 
     }
 

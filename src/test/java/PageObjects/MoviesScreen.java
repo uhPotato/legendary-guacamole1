@@ -37,15 +37,6 @@ public class MoviesScreen extends BaseTest {
         return driver.findElementById("iv_movie_date_active_select").isDisplayed();
     }
 
-    public int getIndexOfInterestedMovie(String movieTitle) {
-        List<MobileElement> movieTitlesList = driver.findElementsById("tvTitle");
-        for (MobileElement movieName:movieTitlesList) {
-            if (movieName.getText().equals(movieTitle)) {
-                return movieTitlesList.indexOf(movieName) - 3;
-            } else return -1;
-        }
-        return -1;
-    }
 
     public static List<MobileElement> getListOfMainNavTabs() {
         return (List<MobileElement>) driver.findElementsByClassName("android.support.v7.app.ActionBar$Tab");

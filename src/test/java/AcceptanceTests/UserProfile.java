@@ -20,7 +20,7 @@ public class UserProfile extends BaseTest {
     public Object[][] createDataForValidChangeNameTest() {
         return new Object[][]{
                 {"Boris"},
-                {"Igor"}
+                //{"Igor"}
         };
     }
 

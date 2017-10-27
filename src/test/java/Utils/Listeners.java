@@ -16,7 +16,7 @@ import static Utils.BaseTest.driver;
 /**
  * Created by borisgurtovyy on 10/12/17.
  */
-public class Listeners implements ITestListener{
+public class Listeners implements ITestListener {
 
 
     ProcessTestRunnable processTestRunnable = null;
@@ -59,13 +59,10 @@ public class Listeners implements ITestListener{
             deleteDir(new File("screenshots"));
 
             String startDir = System.getProperty("user.dir");
-            ProcessBuilder pb = new ProcessBuilder("adb","logcat","-d", "MainActivity:V");
-            pb.directory(new File(startDir));
-            pb.redirectErrorStream(true);
-
+            String adbCommand =  TestSetupProvider.getInstance().getTestSetup().getAdbLogs();
             Process p = null;
             try {
-                p = pb.start();
+                p = Runtime.getRuntime().exec(adbCommand);
             } catch (IOException e){
                 e.printStackTrace();
             }

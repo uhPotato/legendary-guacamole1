@@ -31,12 +31,12 @@ public class ForJenkins {
         Color color = Color.GREEN;
 
 
-        int i = 123;
-        String  s = "Hello World!";
+        int integer = 123;
+        String  string = "Hello World!";
         double doub = 2.01234;
 
 
-        System.out.format("Hi, Everyone! I am showing formats here. %n %d Some other text %s Some other Text%f%n", i, s, doub);
+        System.out.format("Hi, Everyone! I am showing formats here. %n %d Some other text %s Some other Text%f%n", integer, string, doub);
 
         System.out.println(testStaticImport());
 

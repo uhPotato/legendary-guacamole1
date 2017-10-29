@@ -14,3 +14,4 @@ npm-debug.log.*
 *.iml
 /moviemates.tests.iml
 *.log
+*.apk
